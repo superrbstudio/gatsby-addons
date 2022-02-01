@@ -1,14 +1,14 @@
 import React, { CSSProperties } from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import atob from 'atob'
-import Image from '../../types/image'
+import ImageType from '../../types/image'
 
 const DEFAULT_STYLE = {
   display: 'block',
 }
 
 interface Props {
-  image: Image
+  image: ImageType
   className: string
   style: CSSProperties
   imgStyle: CSSProperties
