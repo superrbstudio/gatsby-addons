@@ -1,6 +1,7 @@
 /**
  * Components
  */
-import Image from "./src/components/image"
+import Image from './src/components/image'
+import Seo from './src/components/seo'
 
-export { Image }
+export { Image, Seo }
