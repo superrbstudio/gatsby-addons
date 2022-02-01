@@ -9,7 +9,7 @@ interface SiteConfig {
 }
 
 export const query = graphql`
-  fragment SiteConfig on PrismicSiteconfig {
+  fragment SiteConfig on PrismicSiteConfig {
     data {
       email_address
       facebook_username
