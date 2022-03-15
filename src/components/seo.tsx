@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { graphql, Link, useStaticQuery } from 'gatsby'
 import { Helmet } from 'react-helmet'
 import Metadata from '../../types/metadata'
 
@@ -8,30 +7,7 @@ interface Props {
 }
 
 const Seo = ({ data }: Props) => {
-  const queryData = useStaticQuery(graphql`
-    query SiteQuery {
-      site {
-        siteMetadata {
-          title
-          description
-        }
-      }
-    }
-  `)
-
   if (!data) return null
-
-  let metaTitle = queryData.site.siteMetadata.title
-
-  if (data.meta_title !== undefined && data.meta_title !== null) {
-    metaTitle = data.meta_title
-  }
-
-  let metaDescription = queryData.site.siteMetadata.description
-
-  if (data.meta_description !== undefined && data.meta_description !== null) {
-    metaDescription = data.meta_description
-  }
 
   const meta = []
 
@@ -56,19 +32,19 @@ const Seo = ({ data }: Props) => {
   return (
     <>
       <Helmet
-        title={metaTitle}
+        title={data.meta_title}
         meta={[
           {
             name: `description`,
-            content: metaDescription,
+            content: data.meta_description,
           },
           {
             property: `og:title`,
-            content: metaTitle,
+            content: data.meta_title,
           },
           {
             property: `og:description`,
-            content: metaDescription,
+            content: data.meta_description,
           },
           {
             property: `og:type`,
@@ -80,15 +56,15 @@ const Seo = ({ data }: Props) => {
           },
           {
             name: `twitter:creator`,
-            content: queryData.site.siteMetadata?.author || ``,
+            content: data.meta_author || ``,
           },
           {
             name: `twitter:title`,
-            content: metaTitle,
+            content: data.meta_title,
           },
           {
             name: `twitter:description`,
-            content: metaDescription,
+            content: data.meta_description,
           },
         ].concat(meta)}
       />
