@@ -7,10 +7,11 @@
   "author": "James Dinsdale <hi@molovo.co>",
   "license": "MIT",
   "dependencies": {
+    "@types/react-helmet": "^6.1.5",
     "atob": "^2.1.2",
     "gatsby": "^4.6.0",
-    "gatsby-plugin-image": "^2.6.0",
-    "gatsby-source-prismic": "^5.2.5",
+    "gatsby-plugin-image": "2.3.0",
+    "gatsby-source-prismic": "5.2.3",
     "react-helmet": "^6.1.0",
     "reinspect": "^1.1.0"
   },
