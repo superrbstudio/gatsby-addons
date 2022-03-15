@@ -1,12 +1,11 @@
 {
-  "name": "gatsby-addons",
+  "name": "@superrb/gatsby-addons",
   "version": "1.0.0",
   "description": "Addons for use with Gatsby + Prismic sites",
-  "main": "index.js",
+  "main": "index.ts",
   "repository": "git@github.com:superrbstudio/gatsby-addons.git",
   "author": "James Dinsdale <hi@molovo.co>",
   "license": "MIT",
-  "private": false,
   "dependencies": {
     "atob": "^2.1.2",
     "gatsby": "^4.6.0",
