@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { graphql, Link, useStaticQuery } from 'gatsby'
 import { Helmet } from 'react-helmet'
-import { Metadata } from '../types/metadata'
+import Metadata from '../../types/metadata'
 
 interface Props {
   data: Metadata
