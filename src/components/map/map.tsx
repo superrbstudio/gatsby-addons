@@ -37,7 +37,7 @@ const Map = ({
   const mapsRef = useRef<typeof google.maps>()
 
   const [zoom, setZoom] = useState<number>(initialZoom)
-  const [bounds, setBounds] = useState<Bounds>(null)
+  const [bounds, setBounds] = useState<Bounds>([0, 0, 0, 0])
 
   const { clusters, supercluster } = useSupercluster(
     markers,
@@ -106,7 +106,7 @@ const Map = ({
     <div id="map" className={`map ${className}`}>
       <GoogleMapReact
         bootstrapURLKeys={{
-          key: process.env.GATSBY_GOOGLE_MAPS_API_KEY,
+          key: process.env.GATSBY_GOOGLE_MAPS_API_KEY as string,
         }}
         center={{
           lat: center.lat,
