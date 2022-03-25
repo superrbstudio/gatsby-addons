@@ -158,8 +158,9 @@ const Map = ({
                       className="cluster-marker"
                       onClick={() => {
                         const expansionZoom = Math.min(
-                          supercluster?.getClusterExpansionZoom(cluster.id) ||
-                            5,
+                          supercluster?.getClusterExpansionZoom(
+                            cluster.id as number
+                          ) || 5,
                           20
                         )
                         mapRef.current?.setZoom(expansionZoom)

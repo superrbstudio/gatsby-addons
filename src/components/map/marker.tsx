@@ -13,7 +13,7 @@ const Marker = ({
   lat,
   lng,
   text,
-  icon = null,
+  icon = undefined,
   isCluster = false,
 }: Props) => {
   return (
