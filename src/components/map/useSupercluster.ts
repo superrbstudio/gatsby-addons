@@ -6,10 +6,10 @@ const useSupercluster = (
   markers: MarkerProps[] = [],
   bounds: Bounds,
   zoom: number = 10,
-  radius: number = 25,
+  radius: number = 25
 ) => {
   const supercluster = useRef<Supercluster>(null)
-  const [clusters, setClusters] = useState([])
+  const [clusters, setClusters] = useState<PointFeature<AnyProps>[]>([])
 
   const formatGeopoint = useCallback(
     item =>
@@ -24,7 +24,7 @@ const useSupercluster = (
           coordinates: [item.center.lng, item.center.lat],
         },
       } as PointFeature<AnyProps>),
-    [],
+    []
   )
 
   useEffect(() => {
