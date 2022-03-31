@@ -5,7 +5,7 @@ import React, {
   useRef,
   useState,
 } from 'react'
-import GoogleMapReact from 'google-map-react'
+import GoogleMapReact, { MapOptions } from 'google-map-react'
 import { Bounds, LatLng, MarkerProps } from './types'
 import useSupercluster from './useSupercluster'
 import { AnyProps, PointFeature } from 'supercluster'
@@ -21,6 +21,7 @@ interface Props extends PropsWithChildren<{}> {
   className?: string
   markerIcon?: ReactElement
   clusterMarkerIcon?: ReactElement
+  options: MapOptions
 }
 
 const Map = ({
@@ -32,6 +33,7 @@ const Map = ({
   className = '',
   markerIcon = undefined,
   clusterMarkerIcon = undefined,
+  options = {},
 }: Props) => {
   const mapRef = useRef<google.maps.Map>()
   const mapsRef = useRef<typeof google.maps>()
@@ -133,6 +135,7 @@ const Map = ({
             bounds.nw.lat,
           ])
         }}
+        options={options}
       >
         {useClustering
           ? clusters.map((cluster: PointFeature<AnyProps>, index) => {
