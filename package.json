@@ -7,10 +7,6 @@
   "author": "James Dinsdale <hi@molovo.co>",
   "license": "MIT",
   "dependencies": {
-    "@types/google-map-react": "^2.1.5",
-    "@types/google.maps": "^3.48.3",
-    "@types/react-helmet": "^6.1.5",
-    "@types/supercluster": "^7.1.0",
     "atob": "^2.1.2",
     "gatsby": "^4.6.0",
     "gatsby-plugin-image": "2.3.0",
@@ -22,6 +18,11 @@
   },
   "devDependencies": {
     "@types/atob": "^2.1.2",
+    "@types/google-map-react": "^2.1.5",
+    "@types/google.maps": "^3.48.3",
+    "@types/react": "^17.0.43",
+    "@types/react-helmet": "^6.1.5",
+    "@types/supercluster": "^7.1.0",
     "typescript": "^4.5.5"
   }
 }
