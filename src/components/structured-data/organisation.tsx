@@ -1,7 +1,7 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
 import { Helmet } from 'react-helmet'
-import StructuredDataOrganisation from '../../types/structured-data/organisation'
+import { StructuredData } from '../../../types'
 
 const Organisation = () => {
   const data = useStaticQuery(graphql`
@@ -12,8 +12,7 @@ const Organisation = () => {
     }
   `)
 
-  /** @type {StructuredDataOrganisation} organisation */
-  const organisation = data?.organisation
+  const organisation: StructuredData.Organisation = data?.organisation
   if (!organisation) {
     return null
   }

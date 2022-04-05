@@ -8,4 +8,17 @@ import Page from './types/page'
 import RichText from './types/rich-text'
 import SiteConfig from './types/site-config'
 
-export type { Image, Link, Metadata, Page, RichText, SiteConfig }
+/**
+ * Structured Data Types
+ */
+import * as StructuredData from './types/structured-data'
+
+export type {
+  Image,
+  Link,
+  Metadata,
+  Page,
+  RichText,
+  SiteConfig,
+  StructuredData,
+}
