@@ -14,7 +14,7 @@ const Footer = ({className, flex, children }: Props) => {
       className={`footer ${className}`}
       id={id}
     >
-      <div className={`footer__container container `${flex ? 'container--flex' : ''}``}>
+      <div className={`footer__container container ${flex ? 'container--flex' : ''}`} >
         {children}
       </div>
     </footer>
