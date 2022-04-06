@@ -115,6 +115,7 @@ const Map = ({
           lng: center.lng,
         }}
         defaultZoom={initialZoom}
+        initialZoom={initialZoom}
         // onChildClick={onChildClickCallback}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map, maps }) => {
@@ -160,13 +161,11 @@ const Map = ({
                     <div
                       className="cluster-marker"
                       onClick={() => {
-                        const expansionZoom = Math.min(
+                        const expansionZoom =
                           supercluster?.getClusterExpansionZoom(
                             cluster.id as number
-                          ) || 5,
-                          20
-                        )
-                        mapRef.current?.setZoom(expansionZoom)
+                          )
+                        mapRef.current?.setZoom(expansionZoom || initialZoom)
                         mapRef.current?.panTo({
                           lat: latitude,
                           lng: longitude,
