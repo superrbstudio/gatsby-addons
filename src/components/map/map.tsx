@@ -115,8 +115,6 @@ const Map = ({
           lng: center.lng,
         }}
         defaultZoom={initialZoom}
-        initialZoom={initialZoom}
-        // onChildClick={onChildClickCallback}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map, maps }) => {
           apiIsLoaded(map, maps, markers)
