@@ -30,6 +30,10 @@ const Image = ({
   // so remove any props which would be invalid in that context
   delete props.fadeIn
 
+  if (image === undefined) {
+    return null
+  }
+
   if (image.fluid && 'base64' in image.fluid) {
     const stub = 'data:image/svg+xml;base64,'
     if (image.fluid.base64.includes(stub)) {
