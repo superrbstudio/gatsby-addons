@@ -9170,11 +9170,6 @@ statuses@2.0.1:
   resolved "https://registry.yarnpkg.com/statuses/-/statuses-1.5.0.tgz#161c7dac177659fd9811f43771fa99381478628c"
   integrity sha1-Fhx9rBd2Wf2YEfQ3cfqZOBR4Yow=
 
-storage-factory@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/storage-factory/-/storage-factory-0.2.0.tgz#910d0f7d3b500447f1aab03c665f85ca0a1cc61a"
-  integrity sha512-/eGSaaR94PTwff79p1pm68G164E+v/GkRSX0w4pbC5h1/S5a1F76HRe9FlgdLlpCoaD4eJAV06hY1CtkSUL2sw==
-
 streamsearch@0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/streamsearch/-/streamsearch-0.1.2.tgz#808b9d0e56fc273d809ba57338e929919a1a9f1a"
