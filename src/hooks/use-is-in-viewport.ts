@@ -31,26 +31,35 @@ const useIsInViewport = (initial = false, rootMargin = '0px 0px') => {
         observer.current = null
       }
     }
-  }, [element])
+  }, [])
 
-  const waitForObserver: () => Promise<true | NodeJS.Timeout> =
+  const waitForObserver: () => Promise<IntersectionObserver> =
     useCallback(async () => {
-      if (!observer.current) {
-        return setTimeout(waitForObserver, 50)
-      }
+      return new Promise((resolve, reject) => {
+        const rejectionTimer = setTimeout(() => {
+          reject(new Error('Timeout waiting for observer'))
+        }, 5000)
 
-      return true
+        const wait: () => NodeJS.Timeout | void = () => {
+          if (observer.current) {
+            clearTimeout(rejectionTimer)
+            resolve(observer.current)
+            return
+          }
+
+          return setTimeout(wait, 100)
+        }
+
+        wait()
+      })
     }, [])
 
   const setRef = useCallback(
     async ref => {
       element.current = ref
       if (ref) {
-        await waitForObserver()
-
-        if (observer.current) {
-          observer.current.observe(ref)
-        }
+        const observer = await waitForObserver()
+        observer.observe(ref)
       }
     },
     [element]
