@@ -47,7 +47,7 @@ const useIsInViewport = (initial = false, rootMargin = '0px 0px') => {
             return
           }
 
-          return setTimeout(wait, 100)
+          return setTimeout(wait, 1000)
         }
 
         wait()
