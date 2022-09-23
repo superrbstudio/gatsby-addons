@@ -7,15 +7,17 @@
   "author": "James Dinsdale <hi@molovo.co>",
   "license": "MIT",
   "dependencies": {
-    "@prismicio/react": "^2.5.0",
     "atob": "^2.1.2",
-    "gatsby": "^4.6.0",
-    "gatsby-plugin-image": "2.3.0",
-    "gatsby-source-prismic": "5.2.3",
     "google-map-react": "^2.1.10",
-    "react-helmet": "^6.1.0",
     "reinspect": "^1.1.0",
     "supercluster": "^7.1.4"
+  },
+  "peerDependencies": {
+    "@prismicio/react": "^2.5.0",
+    "gatsby": "^4.6.0",
+    "gatsby-plugin-image": "^2.3.0",
+    "gatsby-source-prismic": "^5.2.3",
+    "react-helmet": "^6.1.0"
   },
   "devDependencies": {
     "@types/atob": "^2.1.2",
