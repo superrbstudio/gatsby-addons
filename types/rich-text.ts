@@ -1,8 +1,9 @@
 import { graphql } from 'gatsby'
+import { PrismicRichTextProps } from '@prismicio/react'
 
 interface RichText {
   html: string
-  richText: string
+  richText: PrismicRichTextProps['field']
   text: string
 }
 

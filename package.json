@@ -7,6 +7,7 @@
   "author": "James Dinsdale <hi@molovo.co>",
   "license": "MIT",
   "dependencies": {
+    "@prismicio/react": "^2.5.0",
     "atob": "^2.1.2",
     "gatsby": "^4.6.0",
     "gatsby-plugin-image": "2.3.0",
