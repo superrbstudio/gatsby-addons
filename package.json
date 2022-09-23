@@ -1,6 +1,6 @@
 {
   "name": "@superrb/gatsby-addons",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Addons for use with Gatsby + Prismic sites",
   "main": "index.ts",
   "repository": "git@github.com:superrbstudio/gatsby-addons.git",
