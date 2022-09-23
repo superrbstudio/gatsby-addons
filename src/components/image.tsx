@@ -9,9 +9,9 @@ const DEFAULT_STYLE = {
 
 interface Props {
   image: ImageType
-  className: string
-  style: CSSProperties
-  imgStyle: CSSProperties
+  className?: string
+  style?: CSSProperties
+  imgStyle?: CSSProperties
   [key: string]: any
 }
 
