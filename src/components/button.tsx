@@ -20,8 +20,9 @@ interface Props
 }
 
 const Button = ({
-  label,
   children,
+  label,
+  label_a11y = undefined,
   onClick = undefined,
   href = undefined,
   className = '',
@@ -31,12 +32,16 @@ const Button = ({
 
   const renderedChildren = (
     <>
+      {label_a11y && (
+        <span className="screenreader-text">{label_a11y}</span>
+      )}
       <span
-        className={`screenreader-text button__label ${extendClass(
+        className={`button__label ${extendClass(
           className,
           'label'
         )}`}
         id={`${id}-label`}
+        aria-hidden={label_a11y !== undefined}
       >
         {label}
       </span>
