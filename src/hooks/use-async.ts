@@ -12,7 +12,7 @@ interface ReturnType<T, E = string> {
 // Hook
 const useAsync = <T, E = string>(
   asyncFunction: (...args: any) => Promise<T>, // eslint-disable-line @typescript-eslint/no-explicit-any
-  immediate = true,
+  immediate = false,
   dependencies: any[] = [] // eslint-disable-line @typescript-eslint/no-explicit-any
 ): ReturnType<T, E> => {
   const [status, setStatus] = useState<Status>('idle')
