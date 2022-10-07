@@ -5,6 +5,7 @@ interface Page {
   uid: string
   type: string
   id: string
+  lang: string
   tags: string[]
   data:
     | Metadata
