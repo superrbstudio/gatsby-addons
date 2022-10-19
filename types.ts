@@ -7,6 +7,7 @@ import Metadata from './types/metadata'
 import Page from './types/page'
 import RichText from './types/rich-text'
 import SiteConfig from './types/site-config'
+import AlternateLanguage from './types/alternate-language'
 
 /**
  * Structured Data Types
@@ -14,6 +15,7 @@ import SiteConfig from './types/site-config'
 import * as StructuredData from './types/structured-data'
 
 export type {
+  AlternateLanguage,
   Image,
   Link,
   Metadata,
