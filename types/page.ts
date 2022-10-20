@@ -1,9 +1,5 @@
-import Link from './link'
+import AlternateLanguage from './alternate-language'
 import Metadata from './metadata'
-
-interface AlternateLanguage extends Link {
-  lang: string
-}
 
 interface Page {
   _previewable: string
