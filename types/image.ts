@@ -1,5 +1,3 @@
-import { IGatsbyImageData } from 'gatsby-plugin-image'
-
 export enum ImageLayout {
   none,
   cover,
@@ -13,7 +11,6 @@ interface Image {
     src: string
     srcSet: string
   }
-  gatsbyImageData?: IGatsbyImageData
 }
 
 export default Image
