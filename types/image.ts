@@ -1,5 +1,11 @@
 import { IGatsbyImageData } from 'gatsby-plugin-image'
 
+export enum ImageLayout {
+  none,
+  cover,
+  contain,
+}
+
 interface Image {
   alt: string
   fluid?: {

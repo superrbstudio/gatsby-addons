@@ -1,6 +1,6 @@
 import React, { CSSProperties, useContext } from 'react'
 import atob from 'atob'
-import ImageType from '../../types/image'
+import ImageType, { ImageLayout } from '../../types/image'
 import { LazyLoadingContext } from '../context/lazy-loading-context'
 
 const DEFAULT_STYLE: CSSProperties = {
@@ -22,12 +22,6 @@ const COVER_STYLES: CSSProperties = {
 const CONTAIN_STYLES: CSSProperties = {
   ...COVER_STYLES,
   objectFit: 'contain',
-}
-
-export enum ImageLayout {
-  none,
-  cover,
-  contain,
 }
 
 interface Props {
@@ -87,12 +81,12 @@ const Image = ({
           alt={image.alt}
           style={{
             ...DEFAULT_IMG_STYLE,
-            ...imgStyle,
             ...(layout === ImageLayout.cover
               ? COVER_STYLES
               : layout === ImageLayout.contain
               ? CONTAIN_STYLES
               : {}),
+            ...imgStyle,
           }}
           {...props}
         />
@@ -110,7 +104,15 @@ const Image = ({
           ref={lazyLoad}
           data-src={image.fluid.src}
           alt={image.alt}
-          style={{ ...DEFAULT_IMG_STYLE, ...imgStyle }}
+          style={{
+            ...DEFAULT_IMG_STYLE,
+            ...(layout === ImageLayout.cover
+              ? COVER_STYLES
+              : layout === ImageLayout.contain
+              ? CONTAIN_STYLES
+              : {}),
+            ...imgStyle,
+          }}
           {...props}
         />
       </figure>

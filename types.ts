@@ -1,7 +1,7 @@
 /**
  * Types
  */
-import Image from './types/image'
+import Image, { ImageLayout } from './types/image'
 import Link from './types/link'
 import Metadata from './types/metadata'
 import Page from './types/page'
@@ -24,3 +24,5 @@ export type {
   SiteConfig,
   StructuredData,
 }
+
+export { ImageLayout }
