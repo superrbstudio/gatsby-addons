@@ -13,17 +13,19 @@ const useIsInViewport = (initial = false, rootMargin = '0px 0px') => {
     useRef<IntersectionObserver>(null)
 
   useEffect(() => {
-    observer.current = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          setIsInViewport(entry.isIntersecting && entry.intersectionRatio > 0)
-        })
-      },
-      {
-        rootMargin,
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      }
-    )
+    if (!observer.current) {
+      observer.current = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            setIsInViewport(entry.isIntersecting && entry.intersectionRatio > 0)
+          })
+        },
+        {
+          rootMargin,
+          threshold: [0, 0.25, 0.5, 0.75, 1],
+        }
+      )
+    }
 
     return () => {
       if (observer.current) {
@@ -35,6 +37,10 @@ const useIsInViewport = (initial = false, rootMargin = '0px 0px') => {
 
   const waitForObserver: () => Promise<IntersectionObserver> =
     useCallback(async () => {
+      if (observer.current) {
+        return observer.current
+      }
+
       return new Promise((resolve, reject) => {
         const rejectionTimer = setTimeout(() => {
           reject(new Error('Timeout waiting for observer'))
