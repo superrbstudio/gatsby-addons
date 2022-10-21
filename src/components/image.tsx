@@ -43,10 +43,6 @@ const Image = ({
 }: Props) => {
   const { lazyLoad } = useContext(LazyLoadingContext)
 
-  // Everything rendered after this point is a DOM element,
-  // so remove any props which would be invalid in that context
-  delete props.fadeIn
-
   if (image === undefined) {
     return null
   }
