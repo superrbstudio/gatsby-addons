@@ -1,10 +1,16 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useContext } from 'react'
 import { GatsbyImage } from 'gatsby-plugin-image'
 import atob from 'atob'
 import ImageType from '../../types/image'
+import { LazyLoadingContext } from '../context/lazy-loading-context'
 
-const DEFAULT_STYLE = {
+const DEFAULT_STYLE: CSSProperties = {
   display: 'block',
+}
+
+const DEFAULT_IMG_STYLE: CSSProperties = {
+  display: 'block',
+  width: '100%',
 }
 
 interface Props {
@@ -22,9 +28,7 @@ const Image = ({
   imgStyle = {},
   ...props
 }: Props) => {
-  className = `image ${className}`
-  style = { ...DEFAULT_STYLE, ...style }
-  imgStyle = { ...DEFAULT_STYLE, ...imgStyle }
+  const { lazyLoad } = useContext(LazyLoadingContext)
 
   // Everything rendered after this point is a DOM element,
   // so remove any props which would be invalid in that context
@@ -34,12 +38,12 @@ const Image = ({
     return null
   }
 
-  if (image.fluid && 'base64' in image.fluid) {
+  if (image.fluid?.base64) {
     const stub = 'data:image/svg+xml;base64,'
     if (image.fluid.base64.includes(stub)) {
       return (
         <div
-          className={className}
+          className={`image ${className}`}
           dangerouslySetInnerHTML={{
             __html: atob(image.fluid.base64.replace(stub, '')),
           }}
@@ -49,26 +53,47 @@ const Image = ({
     }
   }
 
-  if (image.gatsbyImageData) {
+  if (image.fluid?.srcSet) {
+    const placeholder = image.fluid?.srcSet.split(',')[0]?.split(' ')[0]
+
     return (
-      <GatsbyImage
-        className={className}
-        image={image.gatsbyImageData}
-        alt={image.alt}
-        style={style}
-        imgStyle={imgStyle}
-        {...props}
-      />
+      <figure
+        className={`image ${className}`}
+        style={{ ...DEFAULT_STYLE, ...style }}
+      >
+        <img
+          ref={lazyLoad}
+          src={placeholder}
+          data-srcset={image?.fluid?.srcSet}
+          alt={image.alt}
+          style={{ ...DEFAULT_IMG_STYLE, ...imgStyle }}
+          {...props}
+        />
+      </figure>
     )
+    // return (
+    //   <GatsbyImage
+    //     className={`image ${className}`}
+    //     image={image.gatsbyImageData}
+    //     alt={image.alt}
+    //     style={{ ...DEFAULT_STYLE, style }}
+    //     imgStyle={{ ...DEFAULT_STYLE, imgStyle }}
+    //     {...props}
+    //   />
+    // )
   }
 
   if (image.fluid) {
     return (
-      <figure className={className} style={style}>
+      <figure
+        className={`image ${className}`}
+        style={{ ...DEFAULT_STYLE, ...style }}
+      >
         <img
+          // ref={lazyLoad}
           src={image.fluid.src}
           alt={image.alt}
-          style={imgStyle}
+          style={{ ...DEFAULT_IMG_STYLE, ...imgStyle }}
           {...props}
         />
       </figure>
