@@ -1,5 +1,4 @@
 import React, { CSSProperties, useContext } from 'react'
-import { GatsbyImage } from 'gatsby-plugin-image'
 import atob from 'atob'
 import ImageType from '../../types/image'
 import { LazyLoadingContext } from '../context/lazy-loading-context'
@@ -13,11 +12,30 @@ const DEFAULT_IMG_STYLE: CSSProperties = {
   width: '100%',
 }
 
+const COVER_STYLES: CSSProperties = {
+  height: '100%',
+  objectFit: 'cover',
+  objectPosition: 'center',
+  width: '100%',
+}
+
+const CONTAIN_STYLES: CSSProperties = {
+  ...COVER_STYLES,
+  objectFit: 'contain',
+}
+
+export enum ImageLayout {
+  none,
+  cover,
+  contain,
+}
+
 interface Props {
   image: ImageType
   className?: string
   style?: CSSProperties
   imgStyle?: CSSProperties
+  layout?: ImageLayout
   [key: string]: any
 }
 
@@ -26,6 +44,7 @@ const Image = ({
   className = '',
   style = {},
   imgStyle = {},
+  layout = ImageLayout.none,
   ...props
 }: Props) => {
   const { lazyLoad } = useContext(LazyLoadingContext)
@@ -66,32 +85,30 @@ const Image = ({
           src={placeholder}
           data-srcset={image?.fluid?.srcSet}
           alt={image.alt}
-          style={{ ...DEFAULT_IMG_STYLE, ...imgStyle }}
+          style={{
+            ...DEFAULT_IMG_STYLE,
+            ...imgStyle,
+            ...(layout === ImageLayout.cover
+              ? COVER_STYLES
+              : layout === ImageLayout.contain
+              ? CONTAIN_STYLES
+              : {}),
+          }}
           {...props}
         />
       </figure>
     )
-    // return (
-    //   <GatsbyImage
-    //     className={`image ${className}`}
-    //     image={image.gatsbyImageData}
-    //     alt={image.alt}
-    //     style={{ ...DEFAULT_STYLE, style }}
-    //     imgStyle={{ ...DEFAULT_STYLE, imgStyle }}
-    //     {...props}
-    //   />
-    // )
   }
 
-  if (image.fluid) {
+  if (image.fluid?.src) {
     return (
       <figure
         className={`image ${className}`}
         style={{ ...DEFAULT_STYLE, ...style }}
       >
         <img
-          // ref={lazyLoad}
-          src={image.fluid.src}
+          ref={lazyLoad}
+          data-src={image.fluid.src}
           alt={image.alt}
           style={{ ...DEFAULT_IMG_STYLE, ...imgStyle }}
           {...props}
