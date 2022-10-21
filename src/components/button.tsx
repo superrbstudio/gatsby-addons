@@ -39,6 +39,7 @@ const Button = ({
         className={`button__label ${extendClass(className, 'label')}`}
         id={`${id}-label`}
         aria-hidden={label_a11y !== undefined}
+        data-text={label}
       >
         {label}
       </span>
