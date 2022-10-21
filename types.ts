@@ -25,4 +25,4 @@ export type {
   StructuredData,
 }
 
-export { ImageLayout }
+export { ImageLayout as ImageLayout }
