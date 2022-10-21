@@ -5,6 +5,7 @@ interface Image {
   fluid?: {
     base64?: string
     src: string
+    srcSet: string
   }
   gatsbyImageData?: IGatsbyImageData
 }
