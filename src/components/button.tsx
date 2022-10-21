@@ -8,6 +8,7 @@ import React, {
 } from 'react'
 import useId from '../hooks/use-id'
 import extendClass from '../utils/extend-class'
+import isExternalLink from '../utils/is-external-link'
 
 interface Props
   extends PropsWithChildren<
@@ -48,6 +49,20 @@ const Button = ({
   )
 
   if (href) {
+    if (isExternalLink(href)) {
+      return (
+        <a
+          onClick={onClick as MouseEventHandler<HTMLAnchorElement>}
+          href={href}
+          className={`button ${className}`}
+          id={id}
+          aria-labelledby={`${id}-label`}
+          {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}
+        >
+          {renderedChildren}
+        </a>
+      )
+    }
     return (
       <Link
         onClick={onClick as MouseEventHandler<HTMLAnchorElement>}
