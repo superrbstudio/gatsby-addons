@@ -17,10 +17,16 @@ const AlternateLanguages = ({ page }: { page: Page }) => {
               rel="alternate"
               hrefLang="x-default"
               href={linkResolver(page)}
+              key="x-default"
             />
           ))}
       {languages.map(page => (
-        <link rel="alternate" hrefLang={page.lang} href={linkResolver(page)} />
+        <link
+          rel="alternate"
+          hrefLang={page.lang}
+          href={linkResolver(page)}
+          key={page.lang}
+        />
       ))}
     </Helmet>
   )
