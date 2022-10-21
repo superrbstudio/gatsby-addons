@@ -14,9 +14,11 @@ interface Props
     HTMLAttributes<HTMLButtonElement | HTMLAnchorElement>
   > {
   label: string
+  label_a11y?: string
   onClick?: MouseEventHandler
   href?: string
   className?: string
+  type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
 }
 
 const Button = ({
@@ -32,14 +34,9 @@ const Button = ({
 
   const renderedChildren = (
     <>
-      {label_a11y && (
-        <span className="screenreader-text">{label_a11y}</span>
-      )}
+      {label_a11y && <span className="screenreader-text">{label_a11y}</span>}
       <span
-        className={`button__label ${extendClass(
-          className,
-          'label'
-        )}`}
+        className={`button__label ${extendClass(className, 'label')}`}
         id={`${id}-label`}
         aria-hidden={label_a11y !== undefined}
       >

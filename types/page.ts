@@ -1,6 +1,11 @@
 import AlternateLanguage from './alternate-language'
 import Metadata from './metadata'
 
+interface PageData {
+  page_title: string
+  [key: string]: any
+}
+
 interface Page {
   _previewable: string
   uid: string
@@ -11,14 +16,7 @@ interface Page {
   first_publication_date: string
   last_publication_date: string
   alternate_languages: AlternateLanguage[]
-  data:
-    | Metadata
-    | {
-        page_title: string
-      }
-    | {
-        [key: string]: any
-      }
+  data: Metadata & PageData
 }
 
 export default Page
