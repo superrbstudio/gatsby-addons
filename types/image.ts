@@ -6,10 +6,10 @@ export enum ImageLayout {
 
 interface Image {
   alt: string
-  fluid?: {
-    base64?: string
+  fluid: {
     src: string
-    srcSet: string
+    base64?: string
+    srcSet?: string
   }
 }
 
