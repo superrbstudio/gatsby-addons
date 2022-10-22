@@ -5,6 +5,7 @@ import React, {
   HTMLAttributes,
   MouseEventHandler,
   PropsWithChildren,
+  memo,
 } from 'react'
 import useId from '../hooks/use-id'
 import extendClass from '../utils/extend-class'
@@ -90,4 +91,4 @@ const Button = ({
   )
 }
 
-export default Button
+export default memo(Button)
