@@ -1,4 +1,4 @@
-import React, { CSSProperties, useContext } from 'react'
+import React, { CSSProperties, useContext, memo } from 'react'
 import atob from 'atob'
 import ImageType, { ImageLayout } from '../../types/image'
 import { LazyLoadingContext } from '../context/lazy-loading-context'
@@ -118,4 +118,4 @@ const Image = ({
   return <div className="image-placeholder" {...props} />
 }
 
-export default Image
+export default memo(Image)
