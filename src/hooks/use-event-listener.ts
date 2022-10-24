@@ -6,7 +6,7 @@ type EventListener<E extends EventName> = (
   event: GlobalEventHandlersEventMap[E]
 ) => void | boolean
 
-type Target = Document | Window | Element
+type Target = Document | Window | Element | null
 
 // Hook
 const useEventListener = <E extends EventName>(
