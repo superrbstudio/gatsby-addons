@@ -51,11 +51,12 @@ const Image = ({
     const stub = 'data:image/svg+xml;base64,'
     if (image.fluid.base64.includes(stub)) {
       return (
-        <div
+        <figure
           className={`image ${className}`}
           dangerouslySetInnerHTML={{
             __html: atob(image.fluid.base64.replace(stub, '')),
           }}
+          style={{ ...DEFAULT_STYLE, ...style }}
           {...props}
         />
       )
