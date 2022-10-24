@@ -13,7 +13,8 @@ const useEventListener = <E extends EventName>(
   eventName: E,
   handler: EventListener<E>,
   options: boolean | AddEventListenerOptions = {},
-  element: Target = window
+  element: Target = window,
+  flag: boolean = true
 ) => {
   // Create a ref that stores handler
   const savedHandler = useRef() as MutableRefObject<EventListener<E>>
@@ -37,12 +38,19 @@ const useEventListener = <E extends EventName>(
       const eventListener = (event: GlobalEventHandlersEventMap[E]) =>
         savedHandler.current(event)
 
-      // Add event listener
-      element.addEventListener(
-        eventName,
-        eventListener as EventListenerOrEventListenerObject,
-        options
-      )
+      if (flag) {
+        // Add event listener
+        element.addEventListener(
+          eventName,
+          eventListener as EventListenerOrEventListenerObject,
+          options
+        )
+      } else {
+        element.removeEventListener(
+          eventName,
+          eventListener as EventListenerOrEventListenerObject
+        )
+      }
 
       // Remove event listener on cleanup
       return () => {
@@ -52,7 +60,7 @@ const useEventListener = <E extends EventName>(
         )
       }
     },
-    [eventName, element] // Re-run if eventName or element changes
+    [eventName, element, flag] // Re-run if eventName or element changes
   )
 }
 
