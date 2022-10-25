@@ -5,6 +5,7 @@ import React, {
   ReactElement,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
 } from 'react'
 
@@ -18,35 +19,37 @@ export const LazyLoadingContextProvider = ({
   const observer: MutableRefObject<IntersectionObserver | null> =
     useRef<IntersectionObserver>(null)
 
-  useEffect(() => {
-    if (!observer.current) {
-      observer.current = new IntersectionObserver(
-        entries => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting && entry.intersectionRatio > 0) {
-              const element = entry.target as HTMLImageElement
-              if (
-                'srcset' in element.dataset &&
-                element.dataset.srcset !== undefined
-              ) {
-                element.srcset = element.dataset.srcset
-              }
-
-              if (
-                'src' in element.dataset &&
-                element.dataset.src !== undefined
-              ) {
-                element.src = element.dataset.src
-              }
-            }
-          })
-        },
-        {
-          rootMargin: '100% 0px',
-          threshold: [0, 0.25, 0.5, 0.75, 1],
+  const onIntersection = useCallback(entries => {
+    entries.forEach((entry: IntersectionObserverEntry) => {
+      if (entry.isIntersecting && entry.intersectionRatio > 0) {
+        const element: HTMLImageElement = entry.target as HTMLImageElement
+        if (
+          'srcset' in element.dataset &&
+          element.dataset.srcset !== undefined
+        ) {
+          element.srcset = element.dataset.srcset
         }
-      )
+
+        if ('src' in element.dataset && element.dataset.src !== undefined) {
+          element.src = element.dataset.src
+        }
+      }
+    })
+  }, [])
+
+  const createObserver = useCallback(() => {
+    if (!observer.current) {
+      observer.current = new IntersectionObserver(onIntersection, {
+        rootMargin: '100% 0px',
+        threshold: [0, 0.25, 0.5, 0.75, 1],
+      })
     }
+
+    return observer.current
+  }, [])
+
+  useLayoutEffect(() => {
+    createObserver()
 
     return () => {
       if (observer.current) {
@@ -64,7 +67,7 @@ export const LazyLoadingContextProvider = ({
 
       return new Promise((resolve, reject) => {
         const rejectionTimer = setTimeout(() => {
-          reject(new Error('Timeout waiting for observer'))
+          reject(new Error('Timeout waiting for observer. Creating a new one.'))
         }, 5000)
 
         const wait: () => NodeJS.Timeout | void = () => {
@@ -83,9 +86,20 @@ export const LazyLoadingContextProvider = ({
 
   const lazyLoad = useCallback(async (ref: HTMLImageElement) => {
     if (ref) {
-      const observer = await waitForObserver()
+      let observer: IntersectionObserver
+
+      try {
+        observer = await waitForObserver()
+      } catch (error) {
+        observer = createObserver()
+      }
+
       observer.observe(ref)
       ref.addEventListener('load', () => {
+        if ('src' in ref.dataset || 'srcset' in ref.dataset) {
+          return
+        }
+
         observer.unobserve(ref)
       })
     }
