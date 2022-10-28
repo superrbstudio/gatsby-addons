@@ -4,7 +4,7 @@
 
 A context which allows you to provide it with image refs to be lazy loaded.
 
-*Included in the built-in [`Image`](../components#image) component.*
+*Included in the built-in [`Image`](../components/README.md#image) component.*
 
 ### Usage
 
@@ -46,7 +46,7 @@ const Header = () => {
 
 A context which allows you to access and control page language, translations, page alternative languages, and locale formatting for dates
 
-*If you are using the [`Page`](../components#page) wrapper component, then the page language and alternative languages are set for you automatically. Check the source of that component to see how to set language yourself.*
+*If you are using the [`Page`](../components/README.md#page) wrapper component, then the page language and alternative languages are set for you automatically. Check the source of that component to see how to set language yourself.*
 
 ### Usage
 
