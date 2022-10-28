@@ -60,3 +60,8 @@ export default translations
 ```
 
 Translations should be stored in `src/translations/<lang>.json`. The typescript types are automatically generated based on the keys in the JSON file.
+
+## Further Documentation
+* [Components](./src/components/README.md)
+* [Contexts](./src/components/README.md)
+* [Hooks](./src/components/README.md)
