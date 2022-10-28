@@ -8,7 +8,7 @@ First, install the package
 yarn add @superrb/gatsby-addons
 ```
 
-## Context Providers
+## Context Providers
 
 Add the context providers in `src/gatsby-browser.tsx` and `src/gatsby-ssr.tsx` for any of the [contexts](./src/context/README.md) you wish to use.
 
