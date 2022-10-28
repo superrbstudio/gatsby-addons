@@ -93,7 +93,7 @@ A wrapper around Google Maps, which comes preconfigured with clustering of map p
 
 ## [Menu Toggle](./menu-toggle.tsx)
 
-Renders a button which is automatically set up to toggle the `navOpen` property of [`NavContext`](../context#nav-context)
+Renders a button which is automatically set up to toggle the `navOpen` property of [`NavContext`](../context/README.md#nav)
 
 ### Usage
 
