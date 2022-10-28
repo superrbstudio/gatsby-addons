@@ -3,6 +3,7 @@ import React, {
   createContext,
   PropsWithChildren,
   ReactElement,
+  ReactNode,
   useCallback,
   useState,
 } from 'react'
@@ -16,7 +17,7 @@ export const NavContext = createContext({
 
 export const NavContextProvider = ({
   children,
-}: PropsWithChildren<ReactElement>) => {
+}: PropsWithChildren<ReactNode>) => {
   const [navOpen, setNavOpen] = useState<boolean>(false)
   useLockBodyScroll(navOpen)
 
