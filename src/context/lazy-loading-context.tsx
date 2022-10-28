@@ -3,6 +3,7 @@ import React, {
   MutableRefObject,
   PropsWithChildren,
   ReactElement,
+  ReactNode,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -15,7 +16,7 @@ export const LazyLoadingContext = createContext({
 
 export const LazyLoadingContextProvider = ({
   children,
-}: PropsWithChildren<ReactElement>) => {
+}: PropsWithChildren<ReactNode>) => {
   const observer: MutableRefObject<IntersectionObserver | null> =
     useRef<IntersectionObserver>(null)
 

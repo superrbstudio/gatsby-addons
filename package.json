@@ -10,6 +10,7 @@
     "atob": "^2.1.2",
     "google-map-react": "^2.1.10",
     "install-peers-cli": "^2.2.0",
+    "lodash": "^4.17.21",
     "reinspect": "^1.1.0",
     "supercluster": "^7.1.4"
   },
@@ -18,6 +19,7 @@
     "gatsby": "^4.6.0",
     "gatsby-plugin-image": "^2.3.0",
     "gatsby-source-prismic": "^5.2.3",
+    "moment": "^2.29.4",
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
