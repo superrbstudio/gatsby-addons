@@ -129,7 +129,7 @@ A memoized wrapper around Prismic's `<PrismicRichText>` component, which automat
 
 Sets SEO metadata for a page, include OG tags
 
-**This component is included in the `[Page](#page)` wrapper component, so you won't need to use it directly unless you omit that component**
+**This component is included in the [`Page`](#page) wrapper component, so you won't need to use it directly unless you omit that component**
 
 ### Usage
 
