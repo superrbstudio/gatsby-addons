@@ -22,7 +22,7 @@ Creates a button. Determines whether to use an `<a>`, `<Link>` or `<button>` ele
 <Button url={'https://superrb.com'} label={'The visible label'} label_a11y={'A separate label for screenreaders'} />
 ```
 
-## [Image](./image.tsx)
+## [Image](./image.tsx)
 
 Render an image object, with srcset and sizes attributes.
 
@@ -53,7 +53,7 @@ query ImageQuery {
 
 A wrapper around Google Maps, which comes preconfigured with clustering of map pins
 
-### Usage
+### Usage
 
 ```tsx
 <Map
@@ -101,7 +101,7 @@ Renders a button which is automatically set up to toggle the `navOpen` property 
 <MenuToggle />
 ```
 
-## [Page](./page.tsx)
+## [Page](./page.tsx)
 
 A wrapper element to be placed around the content of a page, which automatically sets up page language, translation context, alternative languages, and SEO metadata
 
@@ -115,7 +115,7 @@ const Index = () => (
 )
 ```
 
-## [Rich Text](./rich-text.tsx)
+## [Rich Text](./rich-text.tsx)
 
 A memoized wrapper around Prismic's `<PrismicRichText>` component, which automatically registers the link resolver and link components.
 
@@ -131,7 +131,7 @@ Sets SEO metadata for a page, include OG tags
 
 **This component is included in the `[Page](#page)` wrapper component, so you won't need to use it directly unless you omit that component**
 
-### Usage
+### Usage
 
 ```tsx
 <Seo data={page.data as Metadata} />
