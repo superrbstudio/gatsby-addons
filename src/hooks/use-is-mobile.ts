@@ -1,10 +1,10 @@
 import { useCallback, useEffect, useState } from 'react'
 
-const useIsMobile = (initial = true) => {
+const useIsMobile = (initial = true, size = '63.75em') => {
   const [isMobile, setIsMobile] = useState(initial)
 
   const setScreenSize = useCallback(() => {
-    setIsMobile(!window.matchMedia('(min-width: 63.75em)').matches)
+    setIsMobile(!window.matchMedia(`(min-width: ${size})`).matches)
   }, [setIsMobile])
 
   useEffect(() => {
