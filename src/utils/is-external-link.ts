@@ -4,6 +4,11 @@ const isExternalLink = (url: string) => {
     return true
   }
 
+  // Override is needed for root URL, as it cannot be parsed
+  if (url === '/') {
+    return true
+  }
+
   const tmp = new URL(url)
   return tmp.host !== window.location.host
 }
