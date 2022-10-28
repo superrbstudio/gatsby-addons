@@ -28,10 +28,12 @@ export const LazyLoadingContextProvider = ({
           element.dataset.srcset !== undefined
         ) {
           element.srcset = element.dataset.srcset
+          delete element.dataset.srcset
         }
 
         if ('src' in element.dataset && element.dataset.src !== undefined) {
           element.src = element.dataset.src
+          delete element.dataset.src
         }
       }
     })
