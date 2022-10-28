@@ -8,6 +8,7 @@ Allows the animation of any numeric value over a given duration, including [easi
 
 ```tsx
 import React, { useCallback, useState } from 'react'
+import { easeInOutCubic } from '@superrb/gatsby-addons/src/utils/easing-functions'
 import { animate } from '@superrb/gatsby-addons/utils'
 
 const MyComponent = () => {
@@ -16,7 +17,7 @@ const MyComponent = () => {
   const handleClick = useCallback(() => {
     animate(0, 100, v => {
       setValue(v)
-    })
+    }, 1000, easeInOutCubic)
   }, [setValue])
 
   return (
@@ -39,7 +40,7 @@ const MyComponent = (
 )
 ```
 
-## [isExternalLink](./is-external-link.ts)
+## [isExternalLink](./is-external-link.ts)
 
 Used to determine whether a given URL is internal or external
 
