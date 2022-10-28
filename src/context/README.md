@@ -1,4 +1,4 @@
-# Gatsby Addons Contexts
+# Gatsby Addons Contexts
 
 ## [Lazy Loading](./lazy-loading-context.tsx)
 
@@ -50,7 +50,7 @@ A context which allows you to access and control page language, translations, pa
 
 ### Usage
 
-#### Simple string translation
+#### Simple string translation
 
 Translations are added in `src/translations/<lang>.json` in your project.
 
@@ -70,7 +70,7 @@ const MyComponent = () => {
 }
 ```
 
-#### Date Formatting
+#### Date Formatting
 
 ```
 import { TranslationContext } from '@superrb/gatsby-addons/context'
