@@ -4,7 +4,7 @@
 
 Sets the correct hreflang tags for the current page, and any alternative languages
 
-**This component is included in the `[Page](#page)` wrapper component, so you won't need to use it directly unless you omit that component**
+**This component is included in the [`Page`](#page) wrapper component, so you won't need to use it directly unless you omit that component**
 
 ### Usage
 
