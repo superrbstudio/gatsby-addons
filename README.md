@@ -63,5 +63,5 @@ Translations should be stored in `src/translations/<lang>.json`. The typescript 
 
 ## Further Documentation
 * [Components](./src/components/README.md)
-* [Contexts](./src/contexts/README.md)
+* [Contexts](./src/context/README.md)
 * [Hooks](./src/hooks/README.md)
