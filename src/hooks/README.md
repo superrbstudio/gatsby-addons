@@ -4,7 +4,7 @@
 
 Allows asynchronous fetch operations to be run, whilst handling success, error and processing states.
 
-### Usage
+### Usage
 
 ```tsx
 import React, { useCallback } from 'react'
@@ -71,7 +71,7 @@ const MyComponent = () => {
 
 Adds an event listener to an object, with an optional conditional flag.
 
-### Usage
+### Usage
 
 ```tsx
 import React, { useCallback, useState } from 'react'
@@ -197,6 +197,8 @@ const MyComponent = () => {
 ## [useMotionAllowed](./use-motion-allowed.ts)
 
 Returns true/false depending on whether the users would prefer reduced motion (based on `@media (prefers-reduced-motion: reduce)`)
+
+### Usage
 
 ```tsx
 import React from 'react'
