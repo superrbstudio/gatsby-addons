@@ -1,25 +1,31 @@
 import {
+  MouseEvent,
   MouseEventHandler,
   MutableRefObject,
-  useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react'
 import { useDraggable } from 'react-use-draggable-scroll'
-import { useEventListener, useIsInViewport } from '@superrb/gatsby-addons/hooks'
+import useEventListener from './use-event-listener'
+import useIsInViewport from './use-is-in-viewport'
 
 interface Events {
   onMouseDown: MouseEventHandler<HTMLElement>
 }
 
-const useDraggableScroll = (ref, { className }) => {
+const useDraggableScroll = (
+  ref: MutableRefObject<HTMLElement>,
+  { className, ...opts }: { className: string }
+) => {
   const { isInViewport, setRef } = useIsInViewport(false)
-  const { events } = useDraggable(ref)
+  const { events } = useDraggable(ref, {
+    ...opts,
+    isMounted: ref.current !== undefined,
+  })
   const [modifiedEvents, setModifiedEvents] = useState<Events>(events)
   const timer = useRef<NodeJS.Timeout>() as MutableRefObject<NodeJS.Timeout>
   const [dragging, setDragging] = useState<boolean>(false)
-  const [scrolling, setScrolling] = useState<boolean>(false)
 
   const [shouldScroll, setShouldScroll] = useState<boolean>(false)
 
@@ -34,16 +40,6 @@ const useDraggableScroll = (ref, { className }) => {
     const fn = shouldScroll ? 'add' : 'remove'
     ref.current?.classList[fn](`${className}--draggable`)
   }, [ref.current])
-
-  const onScrollStart = () => {
-    setScrolling(true)
-    ref.current?.classList.add(`${className}--scrolling`)
-  }
-
-  const onScrollEnd = () => {
-    setScrolling(false)
-    ref.current?.classList.remove(`${className}--scrolling`)
-  }
 
   const onDragStart = () => {
     setDragging(true)
@@ -63,39 +59,25 @@ const useDraggableScroll = (ref, { className }) => {
     }, 100)
   }
 
-  const handleScroll = useCallback(() => {
-    if (timer.current) {
-      clearTimeout(timer.current)
-    }
-
-    requestAnimationFrame(() => {
-      if (!dragging) {
-        onScrollStart()
-      }
-
-      timer.current = setTimeout(onScrollEnd, 1000)
-    })
-  }, [onScrollStart, onScrollEnd])
-
   useEventListener(
     'mousemove',
     onDragMove,
-    null,
+    undefined,
     typeof window !== 'undefined' ? window : null,
-    isInViewport && shouldScroll,
+    isInViewport && shouldScroll
   )
   useEventListener(
     'mouseup',
     onDragEnd,
-    null,
+    undefined,
     typeof window !== 'undefined' ? window : null,
-    isInViewport && shouldScroll,
+    isInViewport && shouldScroll
   )
 
   useEffect(() => {
     if (!shouldScroll) {
       setModifiedEvents({
-        onMouseDown: (event: MouseEvent<HTMLElement, MouseEvent>) => {},
+        onMouseDown: (event: MouseEvent) => event,
       })
 
       return
@@ -104,7 +86,7 @@ const useDraggableScroll = (ref, { className }) => {
     const originalOnMouseDown = events.onMouseDown
 
     setModifiedEvents({
-      onMouseDown: (event) => {
+      onMouseDown: event => {
         onDragStart()
         originalOnMouseDown(event)
       },
