@@ -60,8 +60,7 @@ A safe wrapper around browser storage, which fails gracefully if storage is unav
 ### Usage
 
 ```tsx
-import { storageFactory } from '@superrb/gatsby-addons/utils'
+import { session } from '@superrb/gatsby-addons/storage'
 
-const session = storageFactory(() => window.sessionStorage)
 session.getItem('testing') // No longer throws an error if access to sessionStorage is blocked, and just returns `null`
 ```
