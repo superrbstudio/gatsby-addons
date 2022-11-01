@@ -46,7 +46,7 @@ query ImageQuery {
 ### Usage
 
 ```tsx
-<Image image={image} layout={layout} />
+<Image image={image} layout={ImageLayout.cover} />
 ```
 
 ## [Map](./map/map.tsx)
