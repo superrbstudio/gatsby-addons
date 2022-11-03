@@ -20,11 +20,12 @@ const Seo = ({ data }: Props) => {
 
   if (data.meta_image !== undefined && data.meta_image !== null) {
     meta.push({
-      name: `og:image`,
+      name: `twitter:image:src`,
       content: data.meta_image?.fluid?.src,
     })
     meta.push({
-      name: `twitter:image:src`,
+      name: 'image',
+      property: 'og:image',
       content: data.meta_image?.fluid?.src,
     })
   }
@@ -35,18 +36,17 @@ const Seo = ({ data }: Props) => {
         title={data.meta_title}
         meta={[
           {
-            name: `description`,
-            content: data.meta_description,
-          },
-          {
+            name: 'title',
             property: `og:title`,
             content: data.meta_title,
           },
           {
+            name: 'description',
             property: `og:description`,
             content: data.meta_description,
           },
           {
+            name: 'type',
             property: `og:type`,
             content: `website`,
           },
