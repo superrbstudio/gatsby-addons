@@ -13,7 +13,7 @@ const useEventListener = <E extends EventName>(
   eventName: E,
   handler: EventListener<E>,
   options: boolean | AddEventListenerOptions = {},
-  element: Target = window,
+  element: Target,
   flag: boolean = true
 ) => {
   // Create a ref that stores handler
