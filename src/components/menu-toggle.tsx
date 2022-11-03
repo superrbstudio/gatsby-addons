@@ -59,7 +59,7 @@ const MenuToggle = ({
       onClick={handleClick}
       aria-expanded={navOpen}
       aria-controls={ariaControls}
-      label={navOpen ? closeLabel : label}
+      label_a11y={navOpen ? closeLabel : label}
       {...props}
     >
       <span className={`menu-toggle__icon ${extendClass(className, 'icon')}`}>
