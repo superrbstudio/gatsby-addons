@@ -4,8 +4,8 @@ const isExternalLink = (url: string) => {
     return true
   }
 
-  // Override is needed for root URL, as it cannot be parsed
-  if (url === '/') {
+  // Override is needed for relative URLs, as they cannot be parsed
+  if (url.startsWith('/')) {
     return true
   }
 
