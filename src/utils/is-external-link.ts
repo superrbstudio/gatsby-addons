@@ -6,7 +6,7 @@ const isExternalLink = (url: string) => {
 
   // Override is needed for relative URLs, as they cannot be parsed
   if (url.startsWith('/')) {
-    return true
+    return false
   }
 
   const tmp = new URL(url)
