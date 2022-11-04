@@ -4,8 +4,8 @@ const isExternalLink = (url: string) => {
     return true
   }
 
-  // Override is needed for relative URLs, as they cannot be parsed
-  if (url.startsWith('/')) {
+  // Override is needed for relative or hash URLs, as they cannot be parsed
+  if (url.startsWith('/') || url.startsWith('#')) {
     return false
   }
 
