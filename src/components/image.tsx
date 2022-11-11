@@ -1,4 +1,11 @@
-import React, { CSSProperties, useContext, memo } from 'react'
+import React, {
+  CSSProperties,
+  useContext,
+  memo,
+  MutableRefObject,
+  useRef,
+  useEffect,
+} from 'react'
 import atob from 'atob'
 import ImageType, { ImageLayout } from '../../types/image'
 import { LazyLoadingContext } from '../context/lazy-loading-context'
@@ -41,7 +48,13 @@ const Image = ({
   layout = ImageLayout.none,
   ...props
 }: Props) => {
+  const imageRef =
+    useRef<HTMLImageElement>() as MutableRefObject<HTMLImageElement>
   const { lazyLoad } = useContext(LazyLoadingContext)
+
+  useEffect(() => {
+    lazyLoad(imageRef.current)
+  }, [image?.fluid?.src, image?.fluid?.srcSet])
 
   if (image === undefined) {
     return null
@@ -72,7 +85,7 @@ const Image = ({
         style={{ ...DEFAULT_STYLE, ...style }}
       >
         <img
-          ref={lazyLoad}
+          ref={imageRef}
           src={placeholder}
           data-srcset={image?.fluid?.srcSet}
           alt={image.alt}
@@ -98,7 +111,7 @@ const Image = ({
         style={{ ...DEFAULT_STYLE, ...style }}
       >
         <img
-          ref={lazyLoad}
+          ref={imageRef}
           data-src={image.fluid.src}
           alt={image.alt}
           style={{
