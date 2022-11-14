@@ -9,6 +9,7 @@ import useIsInViewport from './src/hooks/use-is-in-viewport'
 import useIsMobile from './src/hooks/use-is-mobile'
 import useLockBodyScroll from './src/hooks/use-lock-body-scroll'
 import useMotionAllowed from './src/hooks/use-motion-allowed'
+import useParallax from './src/hooks/use-parallax'
 
 export {
   useAsync,
@@ -19,4 +20,5 @@ export {
   useIsMobile,
   useLockBodyScroll,
   useMotionAllowed,
+  useParallax,
 }
