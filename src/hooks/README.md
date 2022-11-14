@@ -214,3 +214,25 @@ const MyComponent = () => {
   )
 }
 ```
+
+## [useParallax](./use-parallax.ts)
+
+Provides efficient parallax calculations for a given `ref`, without use of `element.getBoundingClientRect()`
+
+### Usage
+
+```tsx
+import React, { useRef } from 'react'
+import { useParallax } from '@superrb/gatsby-addons/hooks'
+
+const MyComponent = () => {
+  const ref = useRef<HTMLElement>() as MutableRefObject<HTMLElement>
+  const pos = useParallax(ref)
+
+  return (
+    <div ref={ref}>
+      <div style={{ transform: `translateY(${pos / 5}%)` }} />
+    </div>
+  )
+}
+```
