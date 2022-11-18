@@ -43,7 +43,7 @@ export const LazyLoadingContextProvider = ({
   const createObserver = useCallback(() => {
     if (!observer.current) {
       observer.current = new IntersectionObserver(onIntersection, {
-        rootMargin: '100% 0px',
+        rootMargin: '100% 100%',
         threshold: [0, 0.25, 0.5, 0.75, 1],
       })
     }
