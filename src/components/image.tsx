@@ -37,6 +37,7 @@ interface Props {
   style?: CSSProperties
   imgStyle?: CSSProperties
   layout?: ImageLayout
+  lazyLoad?: boolean
   [key: string]: any
 }
 
@@ -46,6 +47,7 @@ const Image = ({
   style = {},
   imgStyle = {},
   layout = ImageLayout.none,
+  lazyLoad: shouldLazyLoad = true,
   ...props
 }: Props) => {
   const imageRef =
@@ -53,7 +55,9 @@ const Image = ({
   const { lazyLoad } = useContext(LazyLoadingContext)
 
   useEffect(() => {
-    lazyLoad(imageRef.current)
+    if (shouldLazyLoad) {
+      lazyLoad(imageRef.current)
+    }
   }, [image?.fluid?.src, image?.fluid?.srcSet])
 
   if (image === undefined) {
@@ -87,7 +91,13 @@ const Image = ({
         <img
           ref={imageRef}
           src={placeholder}
-          data-srcset={image?.fluid?.srcSet}
+          {...(shouldLazyLoad
+            ? {
+                'data-srcset': image?.fluid?.srcSet,
+              }
+            : {
+                srcset: image?.fluid?.srcSet,
+              })}
           alt={image.alt}
           style={{
             ...DEFAULT_IMG_STYLE,
@@ -112,7 +122,13 @@ const Image = ({
       >
         <img
           ref={imageRef}
-          data-src={image.fluid.src}
+          {...(shouldLazyLoad
+            ? {
+                'data-src': image?.fluid?.src,
+              }
+            : {
+                src: image?.fluid?.src,
+              })}
           alt={image.alt}
           style={{
             ...DEFAULT_IMG_STYLE,
