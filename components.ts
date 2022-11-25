@@ -3,6 +3,7 @@
  */
 import AlternateLanguages from './src/components/alternate-languages'
 import Button from './src/components/button'
+import Form from './src/components/form'
 import Image from './src/components/image'
 import Map from './src/components/map/map'
 import MenuToggle from './src/components/menu-toggle'
@@ -14,6 +15,7 @@ import * as StructuredData from './src/components/structured-data'
 export {
   AlternateLanguages,
   Button,
+  Form,
   Image,
   Map,
   MenuToggle,

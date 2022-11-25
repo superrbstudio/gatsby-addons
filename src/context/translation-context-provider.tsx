@@ -12,7 +12,7 @@ import translations, {
 } from 'ProjectRoot/src/utils/translations'
 import * as LodashObject from 'lodash/fp/object'
 import moment from 'moment/min/moment-with-locales'
-import { AlternateLanguage } from '@superrb/gatsby-addons/types'
+import { AlternateLanguage } from '../../types'
 
 export type AlternateLanguageMap = {
   [P in Language]?: AlternateLanguage
@@ -22,7 +22,7 @@ interface Props {
   messages: Messages
   language: Language
   setLanguage: (language: Language) => void
-  translate: (key: string) => string
+  translate: (key: string, displayErrors?: boolean) => string | undefined
   moment: typeof moment
   alternateLanguages: AlternateLanguageMap
   setAlternateLanguages: (alternates: AlternateLanguage[]) => void
@@ -37,7 +37,7 @@ export const TranslationContext = createContext({
   messages: {},
   language: process.env.GATSBY_LANGUAGE as Language,
   setLanguage: (language: Language) => {},
-  translate: (key: string) => '',
+  translate: (key: string, displayErrors: boolean = true) => undefined,
 } as Props)
 
 export const TranslationContextProvider = ({
@@ -60,9 +60,9 @@ export const TranslationContextProvider = ({
   }, [language, setMessages, setLocale])
 
   const translate = useCallback(
-    (key: string) => {
+    (key: string, displayErrors = true) => {
       const translated = LodashObject.get(key, messages)
-      if (!translated) {
+      if (!translated && displayErrors) {
         return `Translation missing: ${key}`
       }
 
@@ -73,7 +73,7 @@ export const TranslationContextProvider = ({
 
   const setAlternateLanguages = useCallback(
     (alternates: AlternateLanguage[]) => {
-      const storage = {}
+      const storage = {} as AlternateLanguageMap
       for (let alternate of alternates) {
         storage[alternate.lang] = alternate
       }

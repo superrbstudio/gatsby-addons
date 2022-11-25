@@ -7,10 +7,13 @@
   "author": "James Dinsdale <hi@molovo.co>",
   "license": "MIT",
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "atob": "^2.1.2",
+    "change-case": "^4.1.2",
     "google-map-react": "^2.1.10",
     "install-peers-cli": "^2.2.0",
     "lodash": "^4.17.21",
+    "react-hook-form": "^7.39.5",
     "react-use-draggable-scroll": "^0.4.7",
     "reinspect": "^1.1.0",
     "supercluster": "^7.1.4"
@@ -21,7 +24,8 @@
     "gatsby-plugin-image": "^2.3.0",
     "gatsby-source-prismic": "^5.2.3",
     "moment": "^2.29.4",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/atob": "^2.1.2",
