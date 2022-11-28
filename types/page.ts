@@ -1,17 +1,21 @@
 import AlternateLanguage from './alternate-language'
 import Metadata from './metadata'
+import { Language } from 'ProjectRoot/src/utils/translations'
 
-interface PageData {
+export interface PageData {
   page_title: string
   [key: string]: any
 }
 
-interface Page {
-  _previewable: string
-  uid: string
-  type: string
+export interface PageStub {
   id: string
-  lang: string
+  uid: string
+  lang: Language
+  type: string
+}
+
+interface Page extends PageStub {
+  _previewable: string
   tags: string[]
   first_publication_date: string
   last_publication_date: string

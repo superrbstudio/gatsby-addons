@@ -4,7 +4,7 @@
 import Image, { ImageLayout } from './types/image'
 import Link from './types/link'
 import Metadata from './types/metadata'
-import Page from './types/page'
+import Page, { PageStub } from './types/page'
 import RichText from './types/rich-text'
 import SiteConfig from './types/site-config'
 import AlternateLanguage from './types/alternate-language'
@@ -20,6 +20,7 @@ export type {
   Link,
   Metadata,
   Page,
+  PageStub,
   RichText,
   SiteConfig,
   StructuredData,
