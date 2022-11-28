@@ -10,6 +10,7 @@ import MenuToggle from './src/components/menu-toggle'
 import Page from './src/components/page'
 import RichText from './src/components/rich-text'
 import Seo from './src/components/seo'
+import Slideshow from './src/components/slideshow'
 import * as StructuredData from './src/components/structured-data'
 
 export {
@@ -22,5 +23,6 @@ export {
   Page,
   RichText,
   Seo,
+  Slideshow,
   StructuredData,
 }
