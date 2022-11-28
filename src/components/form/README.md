@@ -26,7 +26,7 @@ const Page = () => (
 
 ### Custom success message
 
-The form comes with a default success message component, shown after successful submission of the form. You can override this by passing custom JSX to the `renderSuccessMessage` prop.
+The form comes with a default [success message component](./success-message.tsx), shown after successful submission of the form. You can override this by passing custom JSX to the `renderSuccessMessage` prop.
 
 ```tsx
 import { Form } from '@superrb/gatsby-addons/components'
