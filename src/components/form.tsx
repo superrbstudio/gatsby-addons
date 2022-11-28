@@ -29,7 +29,7 @@ interface FormProps<T extends ObjectSchema<any>> {
   schema: T
   onSubmit?: (data: { [P in T as string]: any }) => void
   renderSuccessMessage?: (data: { [P in T as string]: any }) => ReactNode
-  renderErrorMessage?: (error?: FieldError | FieldErrorsImpl<any>) => ReactNode
+  renderErrorMessage?: (error?: FieldError) => ReactNode
   renderers?: { [P in T as string]: FieldRenderer }
 }
 
@@ -39,9 +39,7 @@ const Form = ({
   schema,
   onSubmit,
   renderSuccessMessage = () => <SuccessMessage />,
-  renderErrorMessage = (
-    error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>
-  ) => <ErrorMessage error={error} />,
+  renderErrorMessage = (error?: FieldError) => <ErrorMessage error={error} />,
   renderers = {},
   ...props
 }: FormProps<ObjectSchema<any>>) => {
@@ -108,7 +106,10 @@ const Form = ({
                 </span>
 
                 {fieldName in renderers ? (
-                  renderers[fieldName](register(fieldName), errors[fieldName])
+                  renderers[fieldName](
+                    register(fieldName),
+                    errors[fieldName] as FieldError
+                  )
                 ) : (
                   <>
                     {schema.fields[fieldName]?._whitelist?.list?.size > 0 ? (
@@ -141,7 +142,7 @@ const Form = ({
                       </>
                     )}
                     {fieldName in errors &&
-                      renderErrorMessage(errors[fieldName])}
+                      renderErrorMessage(errors[fieldName] as FieldError)}
                   </>
                 )}
               </label>
