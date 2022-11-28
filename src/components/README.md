@@ -22,6 +22,32 @@ Creates a button. Determines whether to use an `<a>`, `<Link>` or `<button>` ele
 <Button url={'https://superrb.com'} label={'The visible label'} label_a11y={'A separate label for screenreaders'} />
 ```
 
+## [Form](./form.tsx)
+
+Creates a form, with field structure defined by a [Yup](https://npmjs.com/package/yup) schema. See [full documentation](./form/README.md)
+
+### Usage
+
+```tsx
+import { Form } from '@superrb/gatsby-addons/components
+import * as yup from 'yup'
+
+const OPTIONS = [
+  'Option 1',
+  'Option 2'
+]
+
+const schema = yup.object({
+  name: yup.string().required(),
+  select: yup.string().onOf(OPTIONS).required(),            // The `oneOf` validation rule will automatically trigger a select box
+  message: yup.string().meta({ textarea: true }).required() // Set `textarea: true` in the fields metadata to display a textarea
+})
+
+const Page = () => (
+  <Form action="https://yoursite.com/send" schema={schema} />
+)
+```
+
 ## [Image](./image.tsx)
 
 Render an image object, with srcset and sizes attributes.
