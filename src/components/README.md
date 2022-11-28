@@ -29,7 +29,7 @@ Creates a form, with field structure defined by a [Yup](https://npmjs.com/packag
 ### Usage
 
 ```tsx
-import { Form } from '@superrb/gatsby-addons/components
+import { Form } from '@superrb/gatsby-addons/components'
 import * as yup from 'yup'
 
 const OPTIONS = [
