@@ -1,8 +1,7 @@
 import React from 'react'
-import { Page } from '../../types'
+import { AlternateLanguage, Page } from '../../types'
 import { linkResolver } from 'ProjectRoot/src/utils/linkResolver'
 import { Helmet } from 'react-helmet'
-import AlternateLanguage from '../../types/alternate-language'
 
 const AlternateLanguages = ({ page }: { page: Page }) => {
   const languages = [...page.alternate_languages, page as AlternateLanguage]

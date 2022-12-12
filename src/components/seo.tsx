@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Helmet } from 'react-helmet'
-import Metadata from '../../types/metadata'
+import { Metadata } from '../../types'
 
 interface Props {
   data: Metadata

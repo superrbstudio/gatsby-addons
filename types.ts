@@ -1,29 +1,23 @@
-/**
- * Types
- */
-import Image, { ImageLayout } from './types/image'
-import Link from './types/link'
-import Metadata from './types/metadata'
-import Page, { PageStub } from './types/page'
-import RichText from './types/rich-text'
-import SiteConfig from './types/site-config'
-import AlternateLanguage from './types/alternate-language'
+const options = [
+  '@superrb/gatsby-addons-prismic',
+  '@superrb/gatsby-addons-filesystem',
+]
 
-/**
- * Structured Data Types
- */
-import * as StructuredData from './types/structured-data'
+let module
+for (let option of options) {
+  try {
+    module = import(`${option}/types`)
 
-export type {
-  AlternateLanguage,
-  Image,
-  Link,
-  Metadata,
-  Page,
-  PageStub,
-  RichText,
-  SiteConfig,
-  StructuredData,
+    break
+  } catch (_) {} // Fail silently
 }
 
-export { ImageLayout as ImageLayout }
+if (!module) {
+  console.error(`
+      You must include a type definition package. Please install one of the following options, depending on your choice of CMS:
+      * @superrb/gatsby-addons-filesystem
+      * @superrb/gatsby-addons-prismic
+    `)
+}
+
+export default module

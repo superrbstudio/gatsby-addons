@@ -21,12 +21,22 @@
   },
   "peerDependencies": {
     "@prismicio/react": "^2.5.0",
+    "@superrb/gatsby-addons-filesystem": "^0.0.2",
+    "@superrb/gatsby-addons-prismic": "^0.0.1",
     "gatsby": "^4.6.0",
     "gatsby-plugin-image": "^2.3.0",
     "gatsby-source-prismic": "^5.2.3",
     "moment": "^2.29.4",
     "react-helmet": "^6.1.0",
     "yup": "^0.32.11"
+  },
+  "peerDependenciesMeta": {
+    "@superrb/gatsby-addons-prismic": {
+      "optional": true
+    },
+    "@superrb/gatsby-addons-filesystem": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@types/atob": "^2.1.2",

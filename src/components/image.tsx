@@ -7,7 +7,7 @@ import React, {
   useEffect,
 } from 'react'
 import atob from 'atob'
-import ImageType, { ImageLayout } from '../../types/image'
+import { Image as ImageType, ImageLayout } from '../../types'
 import { LazyLoadingContext } from '../context/lazy-loading-context'
 
 const DEFAULT_STYLE: CSSProperties = {
