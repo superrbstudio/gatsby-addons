@@ -8,12 +8,26 @@ import Image from './src/components/image'
 import Map from './src/components/map/map'
 import MenuToggle from './src/components/menu-toggle'
 import Page from './src/components/page'
-import RichText from './src/components/rich-text'
 import Seo from './src/components/seo'
 import Slideshow from './src/components/slideshow'
 import * as StructuredData from './src/components/structured-data'
 
-export {
+const options = [
+  '@superrb/gatsby-addons-prismic',
+  '@superrb/gatsby-addons-filesystem',
+]
+
+let moduleComponents
+for (let option of options) {
+  try {
+    moduleComponents = import(`${option}/components`)
+
+    break
+  } catch (_) {} // Fail silently
+}
+
+const exports = {
+  ...moduleComponents,
   AlternateLanguages,
   Button,
   Form,
@@ -21,8 +35,9 @@ export {
   Map,
   MenuToggle,
   Page,
-  RichText,
   Seo,
   Slideshow,
   StructuredData,
 }
+
+export default exports
