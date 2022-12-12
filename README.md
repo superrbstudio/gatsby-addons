@@ -8,6 +8,25 @@ First, install the package
 yarn add @superrb/gatsby-addons
 ```
 
+## Package aliases
+
+Add the following webpack aliases in `gatsby-node.ts`.
+
+```tsx
+export const onCreateWebpackConfig = async ({ actions }) => {
+  actions.setWebpackConfig({
+    resolve: {
+      alias: {
+        ProjectRoot: path.resolve(__dirname, '.'),
+        '@superrb/gatsby-addons-cms': path.resolve(
+          './node_modules/@superrb/gatsby-addons-prismic/', // Replace with path to chosen CMS extension
+        ),
+      },
+    },
+  })
+}
+```
+
 ## Context Providers
 
 Add the context providers in `src/gatsby-browser.tsx` and `src/gatsby-ssr.tsx` for any of the [contexts](./src/context/README.md) you wish to use.
