@@ -12,22 +12,9 @@ import Seo from './src/components/seo'
 import Slideshow from './src/components/slideshow'
 import * as StructuredData from './src/components/structured-data'
 
-const options = [
-  '@superrb/gatsby-addons-prismic',
-  '@superrb/gatsby-addons-filesystem',
-]
+export * from '@superrb/gatsby-addons-cms/components'
 
-let moduleComponents
-for (let option of options) {
-  try {
-    moduleComponents = import(`${option}/components`)
-
-    break
-  } catch (_) {} // Fail silently
-}
-
-const exports = {
-  ...moduleComponents,
+export {
   AlternateLanguages,
   Button,
   Form,
@@ -39,5 +26,3 @@ const exports = {
   Slideshow,
   StructuredData,
 }
-
-export default exports
