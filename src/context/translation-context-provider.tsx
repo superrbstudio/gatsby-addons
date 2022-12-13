@@ -10,7 +10,7 @@ import translations, {
   Language,
   Messages,
 } from 'ProjectRoot/src/utils/translations'
-import * as LodashObject from 'lodash/fp/object'
+import get from 'lodash/fp/get'
 import moment from 'moment/min/moment-with-locales'
 import { AlternateLanguage } from '../../types'
 
@@ -61,7 +61,7 @@ export const TranslationContextProvider = ({
 
   const translate = useCallback(
     (key: string, displayErrors = true) => {
-      const translated = LodashObject.get(key, messages)
+      const translated = get(key, messages)
       if (!translated && displayErrors) {
         return `Translation missing: ${key}`
       }

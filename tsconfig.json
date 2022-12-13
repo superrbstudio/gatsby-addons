@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
+    "module": "ESNext",
     "target": "es6",
     "jsx": "preserve",
     "lib": ["dom", "es2015", "es2017"],
@@ -11,7 +11,8 @@
     "skipLibCheck": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "removeComments": false
+    "removeComments": false,
+    "moduleResolution": "node"
   },
   "include": ["./src/**/*", "./types/**/*", "./*.ts"]
 }
