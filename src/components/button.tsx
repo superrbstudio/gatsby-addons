@@ -34,7 +34,6 @@ const Button = ({
 }: Props) => {
   const id = props.id || useId('button')
 
-  console.log(label)
   const renderedChildren = (
     <>
       {label_a11y && <span className="screenreader-text">{label_a11y}</span>}
