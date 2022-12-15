@@ -10,9 +10,8 @@ import MenuToggle from './src/components/menu-toggle'
 import Page from './src/components/page'
 import Seo from './src/components/seo'
 import Slideshow from './src/components/slideshow'
-import * as StructuredData from './src/components/structured-data'
 
-export * from '@superrb/gatsby-addons-cms/components'
+export { RichText, StructuredData } from '@superrb/gatsby-addons-cms/components'
 
 export {
   AlternateLanguages,
@@ -24,5 +23,4 @@ export {
   Page,
   Seo,
   Slideshow,
-  StructuredData,
 }

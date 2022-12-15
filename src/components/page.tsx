@@ -13,6 +13,10 @@ interface Props {
 const Page = ({ page, children, lang = undefined }: Props) => {
   const { setLanguage, setAlternateLanguages } = useContext(TranslationContext)
 
+  if (page.alternate_languages === null) {
+    page.alternate_languages = []
+  }
+
   useEffect(() => {
     setAlternateLanguages(page.alternate_languages)
     setLanguage(lang || (page.lang as Language))
