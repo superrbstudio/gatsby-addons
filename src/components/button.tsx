@@ -92,3 +92,4 @@ const Button = ({
 }
 
 export default memo(Button)
+export type { Props as ButtonProps }
