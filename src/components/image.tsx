@@ -64,6 +64,11 @@ const Image = ({
     return null
   }
 
+  // Alias images from files
+  if (image?.file?.childImageSharp?.fluid) {
+    image.fluid = image.file.childImageSharp.fluid
+  }
+
   if (image.fluid?.base64) {
     const stub = 'data:image/svg+xml;base64,'
     if (image.fluid.base64.includes(stub)) {
