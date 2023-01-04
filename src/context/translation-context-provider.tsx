@@ -22,7 +22,7 @@ interface Props {
   messages: Messages
   language: Language
   setLanguage: (language: Language) => void
-  translate: (key: string, displayErrors?: boolean) => string | undefined
+  translate: (key: string, displayErrors?: boolean) => string
   moment: typeof moment
   alternateLanguages: AlternateLanguageMap
   setAlternateLanguages: (alternates: AlternateLanguage[]) => void
@@ -37,7 +37,7 @@ export const TranslationContext = createContext({
   messages: {},
   language: process.env.GATSBY_LANGUAGE as Language,
   setLanguage: (language: Language) => {},
-  translate: (key: string, displayErrors: boolean = true) => undefined,
+  translate: (key: string, displayErrors: boolean = true) => '',
 } as Props)
 
 export const TranslationContextProvider = ({
