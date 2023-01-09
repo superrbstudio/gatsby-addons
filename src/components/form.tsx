@@ -22,8 +22,10 @@ import Button from './button'
 import { FieldRenderer } from './form/types'
 import SuccessMessage from './form/success-message'
 import ErrorMessage from './form/error-message'
+import FormField from './form/field'
+import { OptionalObjectSchema } from 'yup/lib/object'
 
-interface FormProps<T extends ObjectSchema<any>> {
+interface FormProps<T extends OptionalObjectSchema<any>> {
   action: string
   name: string
   schema: T
@@ -42,7 +44,7 @@ const Form = ({
   renderErrorMessage = (error?: FieldError) => <ErrorMessage error={error} />,
   renderers = {},
   ...props
-}: FormProps<ObjectSchema<any>>) => {
+}: FormProps<OptionalObjectSchema<any>>) => {
   type DataStructure = InferType<typeof schema>
 
   const {
@@ -85,6 +87,8 @@ const Form = ({
     }
   })
 
+  console.log(schema.fields)
+
   return (
     <>
       {status === 'success' ? (
@@ -103,6 +107,7 @@ const Form = ({
               <label className="form__label" htmlFor={`${name}__${fieldName}`}>
                 <span className="form__label-text">
                   {schema.fields[fieldName]?.spec?.label}
+                  {schema.fields[fieldName]?.required ? '*' : ''}
                 </span>
 
                 {fieldName in renderers ? (
@@ -112,49 +117,12 @@ const Form = ({
                   )
                 ) : (
                   <>
-                    {schema.fields[fieldName]?._whitelist?.list?.size > 0 ? (
-                      <select
-                        className="form__control form__control--select"
-                        {...register(fieldName)}
-                      >
-                        {schema.fields[fieldName]?.spec?.meta?.placeholder ? (
-                          <option value="">
-                            {schema.fields[fieldName]?.spec?.meta?.placeholder}
-                          </option>
-                        ) : null}
-                        {[
-                          ...schema.fields[
-                            fieldName
-                          ]?._whitelist?.list?.entries(),
-                        ].map(([value, label]) => (
-                          <option value={value}>{label}</option>
-                        ))}
-                      </select>
-                    ) : (
-                      <>
-                        {schema.fields[fieldName]?.spec?.meta?.textarea ===
-                        true ? (
-                          <textarea
-                            className="form__control"
-                            {...register(fieldName)}
-                            placeholder={
-                              schema.fields[fieldName]?.spec?.meta?.placeholder
-                            }
-                          />
-                        ) : (
-                          <input
-                            className="form__control"
-                            {...register(fieldName)}
-                            placeholder={
-                              schema.fields[fieldName]?.spec?.meta
-                                ?.placeholder || null
-                            }
-                          />
-                        )}
-                      </>
-                    )}
-                    {fieldName in errors &&
-                      renderErrorMessage(errors[fieldName] as FieldError)}
+                    <FormField
+                      register={register(fieldName)}
+                      schema={schema.fields[fieldName]}
+                    />
+                    {name in errors &&
+                      renderErrorMessage(errors[name] as FieldError)}
                   </>
                 )}
               </label>
