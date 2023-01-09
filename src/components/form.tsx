@@ -117,6 +117,11 @@ const Form = ({
                         className="form__control form__control--select"
                         {...register(fieldName)}
                       >
+                        {schema.fields[fieldName]?.spec?.meta?.placeholder ? (
+                          <option value="">
+                            {schema.fields[fieldName]?.spec?.meta?.placeholder}
+                          </option>
+                        ) : null}
                         {[
                           ...schema.fields[
                             fieldName
@@ -132,11 +137,18 @@ const Form = ({
                           <textarea
                             className="form__control"
                             {...register(fieldName)}
+                            placeholder={
+                              schema.fields[fieldName]?.spec?.meta?.placeholder
+                            }
                           />
                         ) : (
                           <input
                             className="form__control"
                             {...register(fieldName)}
+                            placeholder={
+                              schema.fields[fieldName]?.spec?.meta
+                                ?.placeholder || null
+                            }
                           />
                         )}
                       </>
