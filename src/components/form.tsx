@@ -103,7 +103,7 @@ const Form = ({
           {error && renderErrorMessage({ message: error } as FieldError)}
 
           {Object.keys(schema.fields).map(fieldName => (
-            <div className="form__group">
+            <div className={`form__group form__group--${fieldName}`}>
               <label className="form__label" htmlFor={`${name}__${fieldName}`}>
                 <span className="form__label-text">
                   {schema.fields[fieldName]?.spec?.label}

@@ -1,9 +1,9 @@
 import React from 'react'
 import { AnySchema } from 'yup'
-import { UseFormRegister, FieldValues } from 'react-hook-form'
+import { UseFormRegisterReturn } from 'react-hook-form'
 
 interface Props {
-  register: UseFormRegister<FieldValues>
+  register: UseFormRegisterReturn<string>
   schema: AnySchema<any>
 }
 
