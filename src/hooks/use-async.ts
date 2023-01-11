@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 
-type Status = 'idle' | 'pending' | 'success' | 'error'
+export type Status = 'idle' | 'pending' | 'success' | 'error'
 
 interface ReturnType<T, E = string> {
   execute: (...args: any) => Promise<void> // eslint-disable-line @typescript-eslint/no-explicit-any

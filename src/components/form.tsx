@@ -16,22 +16,24 @@ import {
   useForm,
 } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import useAsync from '../hooks/use-async'
+import useAsync, { Status } from '../hooks/use-async'
 import { TranslationContext } from '../context/translation-context-provider'
-import Button from './button'
 import { FieldRenderer } from './form/types'
 import SuccessMessage from './form/success-message'
 import ErrorMessage from './form/error-message'
 import FormField from './form/field'
 import { OptionalObjectSchema } from 'yup/lib/object'
+import SubmitButton from './form/submit-button'
 
 interface FormProps<T extends OptionalObjectSchema<any>> {
   action: string
   name: string
   schema: T
   onSubmit?: (data: { [P in T as string]: any }) => void
+  onStatusChange?: (status: Status) => void
   renderSuccessMessage?: (data: { [P in T as string]: any }) => ReactNode
   renderErrorMessage?: (error?: FieldError) => ReactNode
+  renderSubmit?: () => ReactNode
   renderers?: { [P in T as string]: FieldRenderer }
 }
 
@@ -40,8 +42,10 @@ const Form = ({
   name,
   schema,
   onSubmit,
+  onStatusChange,
   renderSuccessMessage = () => <SuccessMessage />,
   renderErrorMessage = (error?: FieldError) => <ErrorMessage error={error} />,
+  renderSubmit = () => <SubmitButton />,
   renderers = {},
   ...props
 }: FormProps<OptionalObjectSchema<any>>) => {
@@ -81,13 +85,17 @@ const Form = ({
   ])
   const { translate } = useContext(TranslationContext)
 
+  useEffect(() => {
+    if (onStatusChange) {
+      onStatusChange(status)
+    }
+  }, [status])
+
   Object.keys(schema.fields).map(fieldName => {
     if (!schema.fields[fieldName]?.spec?.label) {
       schema.fields[fieldName].spec.label = sentenceCase(fieldName)
     }
   })
-
-  console.log(schema.fields)
 
   return (
     <>
@@ -98,42 +106,51 @@ const Form = ({
           className="form"
           action={action}
           onSubmit={handleSubmit(execute)}
+          noValidate={true}
           {...props}
         >
           {error && renderErrorMessage({ message: error } as FieldError)}
 
           {Object.keys(schema.fields).map(fieldName => (
-            <div className={`form__group form__group--${fieldName}`}>
-              <label className="form__label" htmlFor={`${name}__${fieldName}`}>
-                <span className="form__label-text">
-                  {schema.fields[fieldName]?.spec?.label}
-                  {schema.fields[fieldName]?.required ? '*' : ''}
-                </span>
+            <>
+              {schema.fields[fieldName]?.spec?.meta?.hidden === true ? (
+                <FormField
+                  register={register(fieldName)}
+                  schema={schema.fields[fieldName]}
+                />
+              ) : (
+                <div className={`form__group form__group--${fieldName}`}>
+                  <label
+                    className="form__label"
+                    htmlFor={`${name}__${fieldName}`}
+                  >
+                    <span className="form__label-text">
+                      {schema.fields[fieldName]?.spec?.label}
+                      {schema.fields[fieldName]?.required ? '*' : ''}
+                    </span>
 
-                {fieldName in renderers ? (
-                  renderers[fieldName](
-                    register(fieldName),
-                    errors[fieldName] as FieldError
-                  )
-                ) : (
-                  <>
-                    <FormField
-                      register={register(fieldName)}
-                      schema={schema.fields[fieldName]}
-                    />
-                    {name in errors &&
-                      renderErrorMessage(errors[name] as FieldError)}
-                  </>
-                )}
-              </label>
-            </div>
+                    {fieldName in renderers ? (
+                      renderers[fieldName](
+                        register(fieldName),
+                        errors[fieldName] as FieldError
+                      )
+                    ) : (
+                      <>
+                        <FormField
+                          register={register(fieldName)}
+                          schema={schema.fields[fieldName]}
+                        />
+                        {fieldName in errors &&
+                          renderErrorMessage(errors[fieldName] as FieldError)}
+                      </>
+                    )}
+                  </label>
+                </div>
+              )}
+            </>
           ))}
 
-          <Button
-            label={translate('form.submit')}
-            className="form__submit"
-            type="submit"
-          />
+          {renderSubmit()}
         </form>
       )}
     </>
