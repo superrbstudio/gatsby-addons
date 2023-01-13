@@ -4,6 +4,7 @@ import React, {
   useState,
   ReactNode,
   useEffect,
+  FormHTMLAttributes,
 } from 'react'
 import * as yup from 'yup'
 import { InferType, ObjectSchema } from 'yup'
@@ -27,6 +28,7 @@ import SubmitButton from './form/submit-button'
 
 interface FormProps<T extends OptionalObjectSchema<any>> {
   action: string
+  method?: string
   name: string
   schema: T
   onSubmit?: (data: { [P in T as string]: any }) => void
@@ -39,17 +41,19 @@ interface FormProps<T extends OptionalObjectSchema<any>> {
 
 const Form = ({
   action,
+  method = 'post',
   name,
   schema,
   onSubmit,
   onStatusChange,
-  renderSuccessMessage = () => <SuccessMessage />,
-  renderErrorMessage = (error?: FieldError) => <ErrorMessage error={error} />,
+  renderSuccessMessage = data => <SuccessMessage />,
+  renderErrorMessage = error => <ErrorMessage error={error} />,
   renderSubmit = () => <SubmitButton />,
   renderers = {},
   ...props
 }: FormProps<OptionalObjectSchema<any>>) => {
   type DataStructure = InferType<typeof schema>
+  const [data, setData] = useState<DataStructure>({})
 
   const {
     register,
@@ -74,6 +78,8 @@ const Form = ({
       })
 
       const responseData = await response.json()
+
+      setData(responseData)
 
       return responseData
     },
@@ -105,6 +111,7 @@ const Form = ({
         <form
           className="form"
           action={action}
+          method={method}
           onSubmit={handleSubmit(execute)}
           noValidate={true}
           {...props}
@@ -119,7 +126,11 @@ const Form = ({
                   schema={schema.fields[fieldName]}
                 />
               ) : (
-                <div className={`form__group form__group--${fieldName}`}>
+                <div
+                  className={`form__group form__group--${fieldName} ${
+                    fieldName in errors ? 'form__group--error' : ''
+                  }`}
+                >
                   <label
                     className="form__label"
                     htmlFor={`${name}__${fieldName}`}
