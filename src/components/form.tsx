@@ -135,10 +135,14 @@ const Form = ({
                     className="form__label"
                     htmlFor={`${name}__${fieldName}`}
                   >
-                    <span className="form__label-text">
-                      {schema.fields[fieldName]?.spec?.label}
-                      {schema.fields[fieldName]?.required ? '*' : ''}
-                    </span>
+                    <span
+                      className="form__label-text"
+                      dangerouslySetInnerHTML={{
+                        __html: `${schema.fields[fieldName]?.spec?.label} ${
+                          schema.fields[fieldName]?.required ? '*' : ''
+                        }`,
+                      }}
+                    />
 
                     {fieldName in renderers ? (
                       renderers[fieldName](
