@@ -47,7 +47,7 @@ const MenuToggle = ({
       document?.activeElement instanceof Element &&
       'blur' in document?.activeElement
     ) {
-      document.activeElement.blur()
+      ;(document.activeElement as HTMLElement)?.blur()
     }
 
     toggleNav()

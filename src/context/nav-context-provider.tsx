@@ -2,7 +2,6 @@ import useLockBodyScroll from '../hooks/use-lock-body-scroll'
 import React, {
   createContext,
   PropsWithChildren,
-  ReactElement,
   ReactNode,
   useCallback,
   useState,

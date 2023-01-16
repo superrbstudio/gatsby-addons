@@ -15,7 +15,7 @@ interface Props
   extends PropsWithChildren<
     HTMLAttributes<HTMLButtonElement | HTMLAnchorElement>
   > {
-  label: string
+  label?: string
   label_a11y?: string
   onClick?: MouseEventHandler
   href?: string

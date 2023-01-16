@@ -1,24 +1,15 @@
 import React, {
   useCallback,
-  useContext,
   useState,
   ReactNode,
   useEffect,
-  FormHTMLAttributes,
+  Fragment,
 } from 'react'
-import * as yup from 'yup'
-import { InferType, ObjectSchema } from 'yup'
-import { pascalCase, sentenceCase } from 'change-case'
-import {
-  Field,
-  FieldError,
-  FieldErrorsImpl,
-  Merge,
-  useForm,
-} from 'react-hook-form'
+import { InferType } from 'yup'
+import { sentenceCase } from 'change-case'
+import { FieldError, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import useAsync, { Status } from '../hooks/use-async'
-import { TranslationContext } from '../context/translation-context-provider'
 import { FieldRenderer } from './form/types'
 import SuccessMessage from './form/success-message'
 import ErrorMessage from './form/error-message'
@@ -89,7 +80,6 @@ const Form = ({
   const { execute, status, error } = useAsync(onSubmitHandler, false, [
     onSubmitHandler,
   ])
-  const { translate } = useContext(TranslationContext)
 
   useEffect(() => {
     if (onStatusChange) {
@@ -118,8 +108,8 @@ const Form = ({
         >
           {error && renderErrorMessage({ message: error } as FieldError)}
 
-          {Object.keys(schema.fields).map(fieldName => (
-            <>
+          {Object.keys(schema.fields).map((fieldName, key) => (
+            <Fragment key={key}>
               {schema.fields[fieldName]?.spec?.meta?.hidden === true ? (
                 <FormField
                   register={register(fieldName)}
@@ -162,7 +152,7 @@ const Form = ({
                   </label>
                 </div>
               )}
-            </>
+            </Fragment>
           ))}
 
           {renderSubmit()}

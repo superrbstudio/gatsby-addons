@@ -12,10 +12,14 @@ const FormField = ({ register, schema }: Props) => (
     {schema?._whitelist?.list?.size > 0 ? (
       <select className="form__control form__control--select" {...register}>
         {schema?.spec?.meta?.placeholder ? (
-          <option value="">{schema?.spec?.meta?.placeholder}</option>
+          <option value="" key={'placeholder'}>
+            {schema?.spec?.meta?.placeholder}
+          </option>
         ) : null}
-        {[...schema?._whitelist?.list?.entries()].map(([value, label]) => (
-          <option value={value}>{label}</option>
+        {[...schema?._whitelist?.list?.entries()].map(([value, label], key) => (
+          <option value={value as string} key={key}>
+            {label as string}
+          </option>
         ))}
       </select>
     ) : (
