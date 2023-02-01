@@ -22,5 +22,5 @@ export {
   useIsMobile,
   useLockBodyScroll,
   useMotionAllowed,
-  useParallax,
+  useParallax
 }

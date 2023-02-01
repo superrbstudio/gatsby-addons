@@ -1,4 +1,4 @@
-import { useEventListener } from '@superrb/gatsby-addons/hooks'
+import { useEventListener } from '../../hooks'
 import { useCallback, useEffect, useState } from 'react'
 
 const useHideOnScroll = (hiddenOnLoad: boolean = false): boolean => {
@@ -33,7 +33,7 @@ const useHideOnScroll = (hiddenOnLoad: boolean = false): boolean => {
     'scroll',
     handleScroll,
     { passive: true },
-    typeof window !== 'undefined' ? window : undefined,
+    typeof window !== 'undefined' ? window : undefined
   )
 
   return hidden
