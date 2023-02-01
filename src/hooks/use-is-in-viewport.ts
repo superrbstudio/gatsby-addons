@@ -6,7 +6,11 @@ import {
   MutableRefObject,
 } from 'react'
 
-const useIsInViewport = (initial = false, rootMargin = '0px 0px') => {
+const useIsInViewport = (
+  initial = false,
+  rootMargin = '0px 0px',
+  threshold = [0, 0.25, 0.5, 0.75, 1]
+) => {
   const [isInViewport, setIsInViewport] = useState(initial)
   const element: MutableRefObject<Element | null> = useRef<Element>(null)
   const observer: MutableRefObject<IntersectionObserver | null> =
@@ -22,7 +26,7 @@ const useIsInViewport = (initial = false, rootMargin = '0px 0px') => {
         },
         {
           rootMargin,
-          threshold: [0, 0.25, 0.5, 0.75, 1],
+          threshold,
         }
       )
     }
