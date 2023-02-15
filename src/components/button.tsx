@@ -36,11 +36,11 @@ const Button = ({
 
   const renderedChildren = (
     <>
-      {label_a11y && <span className="screenreader-text">{label_a11y}</span>}
+      {label_a11y && <span className="screenreader-text" id={`${id}-label`}>{label_a11y}</span>}
       {label && (
         <span
           className={`button__label ${extendClass(className, 'label')}`}
-          id={`${id}-label`}
+          id={!label_a11y ? `${id}-label` : ''}
           aria-hidden={label_a11y !== undefined}
           data-text={label}
         >
