@@ -37,14 +37,16 @@ const Button = ({
   const renderedChildren = (
     <>
       {label_a11y && <span className="screenreader-text">{label_a11y}</span>}
-      <span
-        className={`button__label ${extendClass(className, 'label')}`}
-        id={`${id}-label`}
-        aria-hidden={label_a11y !== undefined}
-        data-text={label}
-      >
-        {label}
-      </span>
+      {label && (
+        <span
+          className={`button__label ${extendClass(className, 'label')}`}
+          id={`${id}-label`}
+          aria-hidden={label_a11y !== undefined}
+          data-text={label}
+        >
+          {label}
+        </span>
+      )}
       {children}
     </>
   )
