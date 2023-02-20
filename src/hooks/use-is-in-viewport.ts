@@ -12,9 +12,9 @@ const useIsInViewport = (
   threshold = [0, 0.25, 0.5, 0.75, 1]
 ) => {
   const [isInViewport, setIsInViewport] = useState(initial)
-  const element: MutableRefObject<Element | null> = useRef<Element>(null)
-  const observer: MutableRefObject<IntersectionObserver | null> =
-    useRef<IntersectionObserver>(null)
+  const element = useRef<HTMLElement | null>() as MutableRefObject<HTMLElement | null>
+  const observer = 
+    useRef<IntersectionObserver>() as MutableRefObject<IntersectionObserver | null>
 
   useEffect(() => {
     if (!observer.current) {
@@ -65,7 +65,7 @@ const useIsInViewport = (
     }, [])
 
   const setRef = useCallback(
-    async ref => {
+    async (ref: HTMLElement | null) => {
       element.current = ref
       if (ref) {
         const observer = await waitForObserver()
