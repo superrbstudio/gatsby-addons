@@ -3,21 +3,28 @@ import { MutableRefObject, useEffect, useRef } from 'react'
 type EventName = keyof GlobalEventHandlersEventMap
 
 type EventListener<E extends EventName> = (
-  event: GlobalEventHandlersEventMap[E]
+  event: GlobalEventHandlersEventMap[E],
 ) => void | boolean
 
-type Target = Document | Window | Element | null
+type Target = Document | Window | Element
 
 // Hook
 const useEventListener = <E extends EventName>(
   eventName: E,
   handler: EventListener<E>,
   options: boolean | AddEventListenerOptions = {},
-  element: Target,
-  flag: boolean = true
+  element?: Target,
+  flag: boolean = true,
 ) => {
   // Create a ref that stores handler
-  const savedHandler = useRef() as MutableRefObject<EventListener<E>>
+  const savedHandler = useRef<EventListener<E>>() as MutableRefObject<
+    EventListener<E>
+  >
+  const elementRef = useRef<Target>() as MutableRefObject<Target>
+
+  useEffect(() => {
+    elementRef.current = element || window
+  }, [element])
 
   // Update ref.current value if handler changes.
   // This allows our effect below to always get latest handler ...
@@ -25,13 +32,14 @@ const useEventListener = <E extends EventName>(
   // ... and potentially cause effect to re-run every render.
   useEffect(() => {
     savedHandler.current = handler
-  }, [handler])
+  }, [handler, elementRef.current])
 
   useEffect(
     () => {
       // Make sure element supports addEventListener
       // On
-      const isSupported = element && element.addEventListener
+      const isSupported =
+        elementRef.current && elementRef.current.addEventListener
       if (!isSupported) return
 
       // Create event listener that calls handler function stored in ref
@@ -40,27 +48,34 @@ const useEventListener = <E extends EventName>(
 
       if (flag) {
         // Add event listener
-        element.addEventListener(
+        elementRef.current.addEventListener(
           eventName,
           eventListener as EventListenerOrEventListenerObject,
-          options
+          options,
         )
       } else {
-        element.removeEventListener(
+        elementRef.current.removeEventListener(
           eventName,
-          eventListener as EventListenerOrEventListenerObject
+          eventListener as EventListenerOrEventListenerObject,
         )
       }
 
       // Remove event listener on cleanup
       return () => {
-        element.removeEventListener(
+        elementRef.current.removeEventListener(
           eventName,
-          eventListener as EventListenerOrEventListenerObject
+          eventListener as EventListenerOrEventListenerObject,
         )
       }
     },
-    [eventName, element, flag] // Re-run if eventName or element changes
+    [
+      eventName,
+      handler,
+      savedHandler.current,
+      element,
+      elementRef.current,
+      flag,
+    ], // Re-run if eventName or element changes
   )
 }
 
