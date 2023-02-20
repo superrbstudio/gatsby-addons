@@ -11,10 +11,9 @@ import useId from '../hooks/use-id'
 import extendClass from '../utils/extend-class'
 import isExternalLink from '../utils/is-external-link'
 
-interface Props
-  extends PropsWithChildren<
-    HTMLAttributes<HTMLButtonElement | HTMLAnchorElement>
-  > {
+type Props =  (PropsWithChildren<
+HTMLAttributes<HTMLButtonElement | HTMLAnchorElement>
+> | ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttributes<HTMLAnchorElement>) & {
   label?: string
   label_a11y?: string
   onClick?: MouseEventHandler
