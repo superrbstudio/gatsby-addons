@@ -30,6 +30,7 @@ export const NavContextProvider = ({
 
   const closeNav = useCallback(() => {
     setNavOpen(false)
+    document.activeElement?.blur()
   }, [setNavOpen])
 
   return (
