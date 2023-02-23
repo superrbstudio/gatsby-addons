@@ -1,66 +1,27 @@
-import {
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react'
-import { useEventListener, useIsInViewport } from '../../hooks'
-import { getYPos } from '../../utils'
+import { useEventListener } from '../../hooks'
+import { useCallback } from 'react'
 
-const useParallax = (ref: MutableRefObject<HTMLElement>) => {
-  if (!ref) {
-    return 0
-  }
+const useParallax = (items: HTMLElement[], flag: boolean = true) => {
+  const onScroll = useCallback(
+    (event: GlobalEventHandlersEventMap['scroll']) => {
+      items.forEach((item, index) => {
+        if (!item) {
+          return
+        }
 
-  const yPos = useRef<number>(0) as MutableRefObject<number>
-  const [pos, setPos] = useState<number>(0)
-  const { isInViewport, setRef } = useIsInViewport(false)
+        const box = item.getBoundingClientRect()
 
-  useEffect(() => {
-    setRef(ref.current)
-  }, [ref.current])
-
-  const handleScroll = useCallback(() => {
-    requestAnimationFrame(() => {
-      setPos(((window.scrollY - yPos.current) / window.innerHeight) * 100)
-    })
-  }, [setPos, ref.current])
-
-  const handleResize = useCallback(() => {
-    requestAnimationFrame(() => {
-      yPos.current = getYPos(ref.current)
-    })
-  }, [])
-
-  useEventListener(
-    'scroll',
-    handleScroll,
-    { passive: true },
-    typeof window !== 'undefined' ? window : null,
-    isInViewport
-  )
-  useEventListener(
-    'resize',
-    handleResize,
-    undefined,
-    typeof window !== 'undefined' ? window : null,
-    isInViewport
+        requestAnimationFrame(() => {
+          item.style.transform = `translate3d(0, ${
+            (box.top / window.innerHeight) * 100 * (1 + index / 500)
+          }%, 0)`
+        })
+      })
+    },
+    [items]
   )
 
-  useEffect(() => {
-    yPos.current = getYPos(ref.current)
-  }, [ref.current])
-
-  useEffect(() => {
-    yPos.current = isInViewport ? getYPos(ref.current) : 0
-  }, [isInViewport])
-
-  useEffect(() => {
-    handleScroll()
-  }, [yPos.current])
-
-  return pos
+  useEventListener('scroll', onScroll, { passive: true }, undefined, flag)
 }
 
 export default useParallax
