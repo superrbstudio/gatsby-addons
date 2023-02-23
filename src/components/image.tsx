@@ -6,10 +6,12 @@ import React, {
   useRef,
   useEffect,
   forwardRef,
+  ForwardedRef,
 } from 'react'
 import atob from 'atob'
 import { Image as ImageType, ImageLayout } from '../../types'
-import { LazyLoadingContext } from '../context/lazy-loading-context'
+import { LazyLoadingContext, PreloadContext } from '../../context'
+import { PreloadItem } from '../context/preload-context-provider'
 
 const DEFAULT_STYLE: CSSProperties = {
   display: 'block',
@@ -39,6 +41,7 @@ interface Props {
   imgStyle?: CSSProperties
   layout?: ImageLayout
   lazyLoad?: boolean
+  preload?: boolean
   [key: string]: any
 }
 
@@ -51,16 +54,27 @@ const Image = forwardRef(
       imgStyle = {},
       layout = ImageLayout.none,
       lazyLoad: shouldLazyLoad = true,
+      preload: shouldPreload = false,
       ...props
     }: Props,
-    ref: MutableRefObject<HTMLElement>
+    ref: ForwardedRef<HTMLElement>
   ) => {
     const imageRef =
       useRef<HTMLImageElement>() as MutableRefObject<HTMLImageElement>
     const { lazyLoad } = useContext(LazyLoadingContext)
+    const { addPreloadItem } = useContext(PreloadContext)
+
+    addPreloadItem(
+      shouldPreload
+        ? {
+            url: image.fluid?.src,
+            imagesrcset: image.fluid?.srcSet,
+          }
+        : null
+    )
 
     useEffect(() => {
-      if (shouldLazyLoad) {
+      if (shouldLazyLoad && !shouldPreload) {
         lazyLoad(imageRef.current)
       }
     }, [image?.fluid?.src, image?.fluid?.srcSet])
@@ -103,7 +117,7 @@ const Image = forwardRef(
           <img
             ref={imageRef}
             src={placeholder}
-            {...(shouldLazyLoad
+            {...(shouldLazyLoad && !shouldPreload
               ? {
                   'data-srcset': image?.fluid?.srcSet,
                 }
@@ -135,7 +149,7 @@ const Image = forwardRef(
         >
           <img
             ref={imageRef}
-            {...(shouldLazyLoad
+            {...(shouldLazyLoad && !shouldPreload
               ? {
                   'data-src': image?.fluid?.src,
                 }

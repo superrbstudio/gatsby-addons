@@ -44,7 +44,7 @@
     "@types/google.maps": "^3.48.3",
     "@types/node": "^18.11.9",
     "@types/react": "^17.0.43",
-    "@types/react-helmet": "^6.1.5",
+    "@types/react-helmet": "^6.1.6",
     "@types/supercluster": "^7.1.0",
     "typescript": "^4.5.5"
   },
