@@ -5,7 +5,7 @@ import {
 import {
   LazyLoadingContext,
   LazyLoadingContextProvider,
-} from './src/context/lazy-loading-context'
+} from './src/context/lazy-loading-context-provider'
 import {
   TranslationContext,
   TranslationContextProvider,
