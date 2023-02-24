@@ -15,7 +15,7 @@ const AlternateLanguages = ({ page }: { page: Page }) => {
             <link
               rel="alternate"
               hrefLang="x-default"
-              href={linkResolver(page)}
+              href={`${process.env.GATSBY_SITE_URL}${linkResolver(page)}`}
               key="x-default"
             />
           ))}
@@ -23,7 +23,7 @@ const AlternateLanguages = ({ page }: { page: Page }) => {
         <link
           rel="alternate"
           hrefLang={page.lang}
-          href={linkResolver(page)}
+          href={`${process.env.GATSBY_SITE_URL}${linkResolver(page)}`}
           key={page.lang}
         />
       ))}
