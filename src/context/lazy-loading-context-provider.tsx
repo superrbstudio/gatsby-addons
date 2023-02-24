@@ -51,7 +51,7 @@ export const LazyLoadingContextProvider = ({
     return observer.current
   }, [])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     createObserver()
 
     return () => {
