@@ -69,17 +69,11 @@ const Image = forwardRef(
 
     const [height, setHeight] = useState<number>()
     const [width, setWidth] = useState<number>()
-    const [aspectRatio, setAspectRatio] = useState<string>()
 
     const setImageDimensions = useCallback(() => {
       if (imageRef.current) {
         setHeight(imageRef.current.clientHeight)
         setWidth(imageRef.current.clientWidth)
-        setAspectRatio(
-          (
-            imageRef.current.clientWidth / imageRef.current.clientHeight
-          ).toString()
-        )
       }
     }, [])
 
