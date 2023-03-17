@@ -40,6 +40,7 @@ const FormField = ({ register, schema }: Props) => (
           <input
             type="hidden"
             className="form__control form__control--hidden"
+            value={schema?.spec?.default}
             {...register}
           />
         ) : (
