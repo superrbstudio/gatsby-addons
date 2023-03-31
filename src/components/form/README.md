@@ -15,6 +15,7 @@ const schema = yup.object({
   name: yup.string().required(),
   select: yup.string().oneOf(OPTIONS).required(),            // The `oneOf` validation rule will automatically trigger a select box
   message: yup.string().meta({ textarea: true }).required() // Set `textarea: true` in the fields metadata to display a textarea
+  hidden: yup.string().meta({ hidden: true }).required() // Set `hidden: true` in the fields metadata to create a hidden field
 })
 
 const Page = () => (

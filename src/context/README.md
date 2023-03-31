@@ -42,6 +42,27 @@ const Header = () => {
 }
 ```
 
+## [Preload](./preload-context-provider.tsx)
+
+A context which allows you to mark URLs for preloading with the [`usePreload`](../hooks/use-preload.ts), and delivers them to a [`<PreloadLinks />`](../components/preload-links.tsx) component in the layout.
+
+```tsx
+import { React, useContext } from 'react'
+import { PreloadContext } from '@superrb/gatsby-addons/context'
+
+const MyComponent = () => {
+  const { preloadLinks } = useContext(PreloadContext)
+
+  return (
+    <>
+      {preloadLinks.map(link => (
+        // Do something with preload items
+      ))}
+    </>
+  )
+}
+```
+
 ## [Translation](./translation-context-provider.tsx)
 
 A context which allows you to access and control page language, translations, page alternative languages, and locale formatting for dates

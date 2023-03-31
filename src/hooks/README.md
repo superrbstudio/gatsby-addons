@@ -118,6 +118,21 @@ const MyComponent = () => {
 }
 ```
 
+## [useHideOnScroll](./use-hide-on-scroll.ts)
+
+Used to hide an element on scroll down, and show it on scroll up. Usually used for fixed navigation.
+
+```tsx
+import React from 'react'
+import { useHideOnScroll } from '@superrb/gatsby-addons/hooks'
+
+const MyComponent = () => {
+  const hidden = useHideOnScroll(false) // Argument determines whether element is hidden before first scroll
+
+  return <div aria-hidden={hidden}></div>
+}
+```
+
 ## [useId](./use-id.ts)
 
 Generate a unique ID for a component with a given prefix.
@@ -154,6 +169,12 @@ const MyComponent = () => {
     </div>
   )
 }
+```
+
+Root margin and threshold for the internal IntersectionObserver can be overridden by passing them to the hook
+
+```tsx
+const { isInViewport, setRef } = useIsInViewport(false, '100px 100px', [0, .25, .5, .75, 1])
 ```
 
 ## [useIsMobile](./use-is-mobile.ts)
@@ -236,3 +257,50 @@ const MyComponent = () => {
   )
 }
 ```
+
+## [usePreload](./use-preload.ts)
+
+Adds preload tag to `<head>` for a given URL (if `<PreloadLinks>` component is present - included in `<Page>` component by default).
+
+### Usage
+
+By default, adds a preload tag for an image URL
+
+```tsx
+import React from 'react'
+
+const MyComponent = () => {
+  usePreload('https://example.com/image.png')
+
+  return (
+    // Component body
+  )
+}
+```
+
+The second argument accepts an image srcset, and will preload the correct image based on current screen size
+
+```tsx
+import React from 'react'
+
+const MyComponent = () => {
+  usePreload('https://example.com/image.png', 'https://example.com/image.png 250w, https://example.com/image-large.png 1024w')
+
+  return (
+    // Component body
+  )
+}
+```
+
+For other content types, pass you can pass `as` and `crossorigin` attributes as the 3rd and 4th arguments. The 5th argument is an object which will be passed to the `<link>` element as props.
+
+```tsx
+import React from 'react'
+
+const MyComponent = () => {
+  usePreload('https://example.com/style.css', undefined, 'style', 'anonymous', { onLoad: 'this.rel = "stylesheet"' })
+
+  return (
+    // Component body
+  )
+}

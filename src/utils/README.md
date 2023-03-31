@@ -2,7 +2,7 @@
 
 ## [animate](./animate.ts)
 
-Allows the animation of any numeric value over a given duration, including [easing](./easing-functions.ts).
+Allows the animation of any numeric value over a given duration, including custom [easing](./easing-functions.ts).
 
 ### Usage
 
@@ -53,14 +53,61 @@ isExternalLink('https://superrb.com') // true
 isExternalLink('/home')               // false
 ```
 
-## [storageFactory](./storage-factory.ts)
+## [extendClass](./extend-class.ts)
 
-A safe wrapper around browser storage, which fails gracefully if storage is unavailable (for example, if user has blocked cookies in Safari, which causes accessing `localStorage` and `sessionStorage` to throw a fatal error)
+Used within wrapper components to extend a provided className for BEM-compatible child components
 
 ### Usage
 
 ```tsx
+import { extendClass } from '@superrb/gatsby-addons/utils'
+
+const className = extendClass('header', 'item') // Returns a BEM-compatible class name of `header__item`
+```
+
+## [getYPos](./get-y-pos.ts)
+
+Get the pixel distance of an element from the top of the document
+
+### Usage
+
+```tsx
+import { getYPos } from '@superrb/gatsby-addons/utils'
+
+getYPos(document.getElementById('#content'))
+```
+
+## [isExternalLink](./is-external-link.ts)
+
+Compares a given URL with the current hostname to check if link is to an external site or not
+
+### Usage
+
+```tsx
+import { isExternalLink } from '@superrb/gatsby-addons/utils'
+
+isExternalLink('https://google.com')  // true
+isExternalLink('/test')               // false
+```
+
+## [storageFactory](./storage-factory.ts)
+
+A safe wrapper around browser storage, which creates its own in-memory store if the requested storage is unavailable (for example, if user has blocked cookies in Safari, which causes accessing `localStorage` and `sessionStorage` to throw a fatal error when accessed)
+
+### Usage
+
+```tsx
+import { storageFactory } from '@superrb/gatsby-addons/utils'
+
+const session = storageFactory(() => sessionStorage)
+
+session.setItem('test', 'test')
+```
+
+Addons comes with built-in wrappers for `sessionStorage` and `localStorage`.
+
+```tsx
 import { session } from '@superrb/gatsby-addons/storage'
 
-session.getItem('testing') // No longer throws an error if access to sessionStorage is blocked, and just returns `null`
+session.getItem('testing') // No longer throws an error if access to sessionStorage is blocked, and just stores data in memory
 ```

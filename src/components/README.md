@@ -72,7 +72,13 @@ query ImageQuery {
 ### Usage
 
 ```tsx
-<Image image={image} layout={ImageLayout.cover} />
+<Image
+  image={image}
+  layout={ImageLayout.cover}
+  sizes={'(min-width: 75em) 50vw, 100vw' /* Default: 100vw */}
+  preload={false /* Change to true for above-the-fold images */}
+  lazyLoad={true /* Disabled if preloading is enabled */}
+/>
 ```
 
 ## [Map](./map/map.tsx)
@@ -139,6 +145,18 @@ const Index = () => (
     // Page content here
   </Page>
 )
+```
+
+## [PreloadLinks](./preload-links.tsx)
+
+Used to render preload links from a parent [`PreloadContext`](../context/preload-context-provider.tsx).
+
+**This component is included in the [`Page`](#page) wrapper component, so you won't need to use it directly unless you omit that component**
+
+### Usage
+
+```tsx
+<PreloadLinks />
 ```
 
 ## [Rich Text](./rich-text.tsx)
