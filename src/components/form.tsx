@@ -3,7 +3,7 @@ import React, {
   useState,
   ReactNode,
   useEffect,
-  Fragment,
+  Fragment, useContext
 } from 'react'
 import { InferType } from 'yup'
 import { sentenceCase } from 'change-case'
@@ -16,6 +16,7 @@ import ErrorMessage from './form/error-message'
 import FormField from './form/field'
 import { OptionalObjectSchema } from 'yup/lib/object'
 import SubmitButton from './form/submit-button'
+import { TranslationContext } from '../context/translation-context-provider'
 
 interface FormProps<T extends OptionalObjectSchema<any>> {
   action: string
@@ -45,6 +46,7 @@ const Form = ({
 }: FormProps<OptionalObjectSchema<any>>) => {
   type DataStructure = InferType<typeof schema>
   const [data, setData] = useState<DataStructure>({})
+  const { translate } = useContext(TranslationContext)
 
   const {
     register,
@@ -69,6 +71,14 @@ const Form = ({
       })
 
       const responseData = await response.json()
+
+      if(!response.ok) {
+        if (responseData.error) {
+          throw new Error(responseData.error)
+        }
+
+        throw new Error(translate('form.error.endpoint_failure'))
+      }
 
       setData(responseData)
 
