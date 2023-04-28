@@ -43,6 +43,13 @@ const FormField = ({ register, schema }: Props) => (
             value={schema?.spec?.default}
             {...register}
           />
+        ) : schema?.type === 'mixed'? (
+          <input
+            className="form__control form__control--mixed"
+            type="file"
+            value={schema?.spec?.default}
+            {...register}
+          />
         ) : (
           <input
             className="form__control"

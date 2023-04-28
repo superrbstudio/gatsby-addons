@@ -31,6 +31,13 @@ interface FormProps<T extends OptionalObjectSchema<any>> {
   renderers?: { [P in T as string]: FieldRenderer }
 }
 
+const toBase64 = (file: File) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => resolve(reader.result);
+  reader.onerror = reject;
+});
+
 const Form = ({
   action,
   method = 'post',
@@ -60,6 +67,17 @@ const Form = ({
     async (data: DataStructure) => {
       if (onSubmit) {
         return onSubmit(data)
+      }
+
+      for (const [key, value] of Object.entries(data)) {
+        if (value instanceof FileList) {
+          data[`file_${key}`] = []
+          for (const [fileKey, fileValue] of Object.entries(value)) {
+            if (fileValue instanceof File) {
+              data[`file_${key}`][fileKey] = await toBase64(fileValue)
+            }
+          }
+        }
       }
 
       const response = await fetch(action as string, {
