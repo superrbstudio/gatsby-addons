@@ -139,7 +139,7 @@ const Form = ({
                       className="form__label-text"
                       dangerouslySetInnerHTML={{
                         __html: `${schema.fields[fieldName]?.spec?.label} ${
-                          schema.fields[fieldName]?.required ? '*' : ''
+                          schema.fields[fieldName]?.exclusiveTests?.required ? '*' : ''
                         }`,
                       }}
                     />
