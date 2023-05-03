@@ -33,8 +33,14 @@ interface FormProps<T extends OptionalObjectSchema<any>> {
 
 const toBase64 = (file: File) => new Promise((resolve, reject) => {
   const reader = new FileReader();
+  reader.onloadend = () => {
+    // Use a regex to remove data url part
+    const base64String = reader.result
+      .replace('data:', '')
+      .replace(/^.+,/, '');
+    resolve(base64String)
+  };
   reader.readAsDataURL(file);
-  reader.onload = () => resolve(reader.result);
   reader.onerror = reject;
 });
 
@@ -74,7 +80,13 @@ const Form = ({
           data[`file_${key}`] = []
           for (const [fileKey, fileValue] of Object.entries(value)) {
             if (fileValue instanceof File) {
-              data[`file_${key}`][fileKey] = await toBase64(fileValue)
+              const insertFile = {
+                base64: await toBase64(fileValue),
+                name: fileValue.name,
+                type: fileValue.type,
+                size: fileValue.size,
+              }
+              data[`file_${key}`][fileKey] = insertFile
             }
           }
         }
