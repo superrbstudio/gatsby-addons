@@ -67,22 +67,6 @@ const Image = forwardRef(
     const { lazyLoad } = useContext(LazyLoadingContext)
     const { addPreloadItem } = useContext(PreloadContext)
 
-    const [height, setHeight] = useState<number>()
-    const [width, setWidth] = useState<number>()
-
-    const setImageDimensions = useCallback(() => {
-      if (imageRef.current) {
-        setHeight(imageRef.current.clientHeight)
-        setWidth(imageRef.current.clientWidth)
-      }
-    }, [])
-
-    useEffect(() => {
-      setImageDimensions()
-    }, [imageRef.current])
-
-    useEventListener('resize', setImageDimensions)
-
     addPreloadItem(
       shouldPreload
         ? {
@@ -134,8 +118,6 @@ const Image = forwardRef(
           ref={ref}
         >
           <img
-            height={height}
-            width={width}
             ref={imageRef}
             src={placeholder}
             {...(shouldLazyLoad && !shouldPreload
@@ -169,8 +151,6 @@ const Image = forwardRef(
           ref={ref}
         >
           <img
-            height={height}
-            width={width}
             ref={imageRef}
             {...(shouldLazyLoad && !shouldPreload
               ? {
