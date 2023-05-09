@@ -3,6 +3,7 @@
  */
 import AlternateLanguages from './src/components/alternate-languages'
 import Button from './src/components/button'
+import ContextWrapper from './src/components/context-wrapper'
 import Form from './src/components/form'
 import Image from './src/components/image'
 import Map from './src/components/map/map'
@@ -16,6 +17,7 @@ export { RichText, StructuredData } from '@superrb/gatsby-addons-cms/components'
 export {
   AlternateLanguages,
   Button,
+  ContextWrapper,
   Form,
   Image,
   Map,
