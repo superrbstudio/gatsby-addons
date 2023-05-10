@@ -1,10 +1,4 @@
-import useLockBodyScroll from '../hooks/use-lock-body-scroll'
-import React, {
-  createContext,
-  PropsWithChildren,
-  ReactNode,
-  useCallback,
-} from 'react'
+import React, { createContext, PropsWithChildren, ReactNode } from 'react'
 import { useState } from 'reinspect'
 
 export const ModalContext = createContext({
@@ -28,7 +22,7 @@ export const ModalContextProvider = ({
   }
 
   const openModal = (name: string) => {
-    setOpenState((state) => {
+    setOpenState(state => {
       const newState = { ...state }
       newState[name] = true
 
@@ -37,15 +31,13 @@ export const ModalContextProvider = ({
   }
 
   const closeModal = (name: string) => {
-    setOpenState((state) => {
+    setOpenState(state => {
       const newState = { ...state }
       newState[name] = false
 
       return newState
     })
   }
-
-  console.log(openState)
 
   return (
     <ModalContext.Provider value={{ openState, isOpen, openModal, closeModal }}>

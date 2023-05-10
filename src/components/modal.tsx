@@ -1,4 +1,4 @@
-import { TranslationContext } from '@superrb/gatsby-addons/context'
+import { TranslationContext } from '../../context'
 import React, {
   useState,
   PropsWithChildren,
@@ -8,8 +8,8 @@ import React, {
   useRef,
   useCallback,
 } from 'react'
-import { local, session } from '@superrb/gatsby-addons/storage'
-import { useLockBodyScroll } from '@superrb/gatsby-addons/hooks'
+import { local } from '../../storage'
+import { useLockBodyScroll } from '../../hooks'
 import useModal from '../hooks/use-modal'
 
 interface Props {

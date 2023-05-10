@@ -8,6 +8,7 @@ import Form from './src/components/form'
 import Image from './src/components/image'
 import Map from './src/components/map/map'
 import MenuToggle from './src/components/menu-toggle'
+import Modal from './src/components/modal'
 import Page from './src/components/page'
 import Seo from './src/components/seo'
 import Slideshow from './src/components/slideshow'
@@ -22,6 +23,7 @@ export {
   Image,
   Map,
   MenuToggle,
+  Modal,
   Page,
   Seo,
   Slideshow,

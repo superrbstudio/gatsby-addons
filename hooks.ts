@@ -9,6 +9,7 @@ import useId from './src/hooks/use-id'
 import useIsInViewport from './src/hooks/use-is-in-viewport'
 import useIsMobile from './src/hooks/use-is-mobile'
 import useLockBodyScroll from './src/hooks/use-lock-body-scroll'
+import useModal from './src/hooks/use-modal'
 import useMotionAllowed from './src/hooks/use-motion-allowed'
 import useParallax from './src/hooks/use-parallax'
 import usePreconnect from './src/hooks/use-preconnect'
@@ -23,6 +24,7 @@ export {
   useIsInViewport,
   useIsMobile,
   useLockBodyScroll,
+  useModal,
   useMotionAllowed,
   useParallax,
   usePreconnect,

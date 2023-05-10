@@ -1,4 +1,8 @@
 import {
+  ModalContext,
+  ModalContextProvider,
+} from './src/context/modal-context-provider'
+import {
   NavContext,
   NavContextProvider,
 } from './src/context/nav-context-provider'
@@ -16,6 +20,8 @@ import {
 } from './src/context/translation-context-provider'
 
 export {
+  ModalContext,
+  ModalContextProvider,
   NavContext,
   NavContextProvider,
   LazyLoadingContext,
