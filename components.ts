@@ -6,6 +6,7 @@ import Button from './src/components/button'
 import ContextWrapper from './src/components/context-wrapper'
 import Form from './src/components/form'
 import Image from './src/components/image'
+import Link from './src/components/link'
 import Map from './src/components/map/map'
 import MenuToggle from './src/components/menu-toggle'
 import Modal from './src/components/modal'
@@ -21,6 +22,7 @@ export {
   ContextWrapper,
   Form,
   Image,
+  Link,
   Map,
   MenuToggle,
   Modal,

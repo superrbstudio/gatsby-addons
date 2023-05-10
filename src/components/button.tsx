@@ -1,4 +1,3 @@
-import { Link } from 'gatsby'
 import React, {
   AnchorHTMLAttributes,
   ButtonHTMLAttributes,
@@ -7,13 +6,15 @@ import React, {
   PropsWithChildren,
   memo,
 } from 'react'
+import Link from './link'
 import useId from '../hooks/use-id'
 import extendClass from '../utils/extend-class'
-import isExternalLink from '../utils/is-external-link'
 
-type Props =  (PropsWithChildren<
-HTMLAttributes<HTMLButtonElement | HTMLAnchorElement>
-> | ButtonHTMLAttributes<HTMLButtonElement> | AnchorHTMLAttributes<HTMLAnchorElement>) & {
+type Props = (
+  | PropsWithChildren<HTMLAttributes<HTMLButtonElement | HTMLAnchorElement>>
+  | ButtonHTMLAttributes<HTMLButtonElement>
+  | AnchorHTMLAttributes<HTMLAnchorElement>
+) & {
   label?: string
   label_a11y?: string
   onClick?: MouseEventHandler
@@ -35,7 +36,11 @@ const Button = ({
 
   const renderedChildren = (
     <>
-      {label_a11y && <span className="screenreader-text" id={`${id}-label`}>{label_a11y}</span>}
+      {label_a11y && (
+        <span className="screenreader-text" id={`${id}-label`}>
+          {label_a11y}
+        </span>
+      )}
       {label && (
         <span
           className={`button__label ${extendClass(className, 'label')}`}
@@ -51,20 +56,6 @@ const Button = ({
   )
 
   if (href) {
-    if (isExternalLink(href)) {
-      return (
-        <a
-          onClick={onClick as MouseEventHandler<HTMLAnchorElement>}
-          href={href}
-          className={`button ${className}`}
-          id={id}
-          aria-labelledby={`${id}-label`}
-          {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}
-        >
-          {renderedChildren}
-        </a>
-      )
-    }
     return (
       <Link
         onClick={onClick as MouseEventHandler<HTMLAnchorElement>}
