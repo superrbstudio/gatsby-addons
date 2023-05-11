@@ -11,15 +11,19 @@ interface Props extends HTMLAttributes<HTMLAnchorElement> {
 const Link = ({ to, ...props }: Props) => {
   let url = to
   if (url && typeof url !== 'string') {
+    if ('target' in url) {
+      props.target = url.target
+
+      if (props.target === '_blank') {
+        props.rel = 'noopener'
+      }
+    }
+
     url = linkResolver(url)
   }
 
-  try {
-    if (isExternalLink(url)) {
-      return <a href={url} {...props} />
-    }
-  } catch (err) {
-    console.log(err, url)
+  if (isExternalLink(url)) {
+    return <a href={url} {...props} />
   }
 
   return <GatsbyLink to={url} {...props} />

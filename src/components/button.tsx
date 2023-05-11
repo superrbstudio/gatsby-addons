@@ -9,6 +9,7 @@ import React, {
 import Link from './link'
 import useId from '../hooks/use-id'
 import extendClass from '../utils/extend-class'
+import { Link as LinkType } from '../../types'
 
 type Props = (
   | PropsWithChildren<HTMLAttributes<HTMLButtonElement | HTMLAnchorElement>>
@@ -18,7 +19,7 @@ type Props = (
   label?: string
   label_a11y?: string
   onClick?: MouseEventHandler
-  href?: string
+  href?: LinkType | string
   className?: string
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type']
 }
