@@ -20,13 +20,13 @@
     "supercluster": "^7.1.4"
   },
   "peerDependencies": {
-    "@superrb/gatsby-addons-filesystem": "^0.0.3",
-    "@superrb/gatsby-addons-prismic": "^0.0.3",
+    "@superrb/gatsby-addons-filesystem": "^0.0.7",
+    "@superrb/gatsby-addons-prismic": "^0.0.10",
     "gatsby": "^5.9.0",
     "gatsby-plugin-image": "^3.9.0",
     "moment": "^2.29.4",
     "react-helmet": "^6.1.0",
-    "yup": "^0.32.11"
+    "yup": "^1.1.1"
   },
   "peerDependenciesMeta": {
     "@superrb/gatsby-addons-prismic": {
