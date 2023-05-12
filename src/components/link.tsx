@@ -1,4 +1,4 @@
-import React, { HTMLAttributes } from 'react'
+import React, { ForwardedRef, HTMLAttributes, forwardRef } from 'react'
 import { Link as GatsbyLink } from 'gatsby'
 import { Link as LinkType } from '../../types'
 import isExternalLink from '../utils/is-external-link'
@@ -8,25 +8,27 @@ interface Props extends HTMLAttributes<HTMLAnchorElement> {
   to: LinkType | string | undefined
 }
 
-const Link = ({ to, ...props }: Props) => {
-  let url = to
-  if (url && typeof url !== 'string') {
-    if ('target' in url) {
-      props.target = url.target
+const Link = forwardRef(
+  ({ to, ...props }: Props, ref: ForwardedRef<HTMLAnchorElement>) => {
+    let url = to
+    if (url && typeof url !== 'string') {
+      if ('target' in url) {
+        props.target = url.target
 
-      if (props.target === '_blank') {
-        props.rel = 'noopener'
+        if (props.target === '_blank') {
+          props.rel = 'noopener'
+        }
       }
+
+      url = linkResolver(url)
     }
 
-    url = linkResolver(url)
-  }
+    if (isExternalLink(url)) {
+      return <a href={url} {...props} ref={ref} />
+    }
 
-  if (isExternalLink(url)) {
-    return <a href={url} {...props} />
+    return <GatsbyLink to={url} {...props} ref={ref} />
   }
-
-  return <GatsbyLink to={url} {...props} />
-}
+)
 
 export default Link
