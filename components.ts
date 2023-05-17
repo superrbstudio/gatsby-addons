@@ -14,7 +14,11 @@ import Page from './src/components/page'
 import Seo from './src/components/seo'
 import Slideshow from './src/components/slideshow'
 
-export { RichText, StructuredData } from '@superrb/gatsby-addons-cms/components'
+export {
+  RichText,
+  SocialIcons,
+  StructuredData,
+} from '@superrb/gatsby-addons-cms/components'
 
 export {
   AlternateLanguages,
