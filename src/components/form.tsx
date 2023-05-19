@@ -3,10 +3,11 @@ import React, {
   useState,
   ReactNode,
   useEffect,
-  Fragment, useContext
+  Fragment,
+  useContext,
 } from 'react'
 import { InferType } from 'yup'
-import { sentenceCase } from 'change-case'
+import { paramCase, sentenceCase } from 'change-case'
 import { FieldError, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import useAsync, { Status } from '../hooks/use-async'
@@ -31,18 +32,19 @@ interface FormProps<T extends OptionalObjectSchema<any>> {
   renderers?: { [P in T as string]: FieldRenderer }
 }
 
-const toBase64 = (file: File) => new Promise((resolve, reject) => {
-  const reader = new FileReader();
-  reader.onloadend = () => {
-    // Use a regex to remove data url part
-    const base64String = reader.result
-      .replace('data:', '')
-      .replace(/^.+,/, '');
-    resolve(base64String)
-  };
-  reader.readAsDataURL(file);
-  reader.onerror = reject;
-});
+const toBase64 = (file: File) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      // Use a regex to remove data url part
+      const base64String = reader.result
+        .replace('data:', '')
+        .replace(/^.+,/, '')
+      resolve(base64String)
+    }
+    reader.readAsDataURL(file)
+    reader.onerror = reject
+  })
 
 const Form = ({
   action,
@@ -102,7 +104,7 @@ const Form = ({
 
       const responseData = await response.json()
 
-      if(!response.ok) {
+      if (!response.ok) {
         if (responseData.error) {
           throw new Error(responseData.error)
         }
@@ -157,19 +159,25 @@ const Form = ({
                 />
               ) : (
                 <div
-                  className={`form__group form__group--${fieldName} ${
-                    fieldName in errors ? 'form__group--error' : ''
+                  className={`form__group form__group--${paramCase(
+                    fieldName
+                  )} ${fieldName in errors ? 'form__group--error' : ''} ${
+                    schema.fields[fieldName]?.type === 'boolean'
+                      ? 'form__group--checkbox'
+                      : ''
                   }`}
                 >
                   <label
                     className="form__label"
-                    htmlFor={`${name}__${fieldName}`}
+                    htmlFor={`${name}__${paramCase(fieldName)}`}
                   >
                     <span
                       className="form__label-text"
                       dangerouslySetInnerHTML={{
                         __html: `${schema.fields[fieldName]?.spec?.label} ${
-                          schema.fields[fieldName]?.exclusiveTests?.required ? '*' : ''
+                          schema.fields[fieldName]?.exclusiveTests?.required
+                            ? '*'
+                            : ''
                         }`,
                       }}
                     />
@@ -183,6 +191,7 @@ const Form = ({
                       <>
                         <FormField
                           register={register(fieldName)}
+                          id={`${name}__${paramCase(fieldName)}`}
                           schema={schema.fields[fieldName]}
                         />
                         {fieldName in errors &&
