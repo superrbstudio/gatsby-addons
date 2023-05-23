@@ -7,23 +7,23 @@
   "author": "James Dinsdale <hi@molovo.co>",
   "license": "MIT",
   "dependencies": {
-    "@hookform/resolvers": "^2.9.10",
+    "@hookform/resolvers": "^3.1.0",
     "atob": "^2.1.2",
     "change-case": "^4.1.2",
-    "google-map-react": "^2.1.10",
+    "google-map-react": "^2.2.1",
     "install-peers-cli": "^2.2.0",
     "lodash": "^4.17.21",
-    "react-hook-form": "^7.39.5",
+    "react-hook-form": "^7.43.9",
     "react-swipeable": "^7.0.0",
     "react-use-draggable-scroll": "^0.4.7",
     "reinspect": "^1.1.0",
-    "supercluster": "^7.1.4"
+    "supercluster": "^8.0.1"
   },
   "peerDependencies": {
-    "@superrb/gatsby-addons-filesystem": "^0.0.7",
-    "@superrb/gatsby-addons-prismic": "^0.0.10",
-    "gatsby": "^5.9.0",
-    "gatsby-plugin-image": "^3.9.0",
+    "@superrb/gatsby-addons-filesystem": "^0.0.9",
+    "@superrb/gatsby-addons-prismic": "^0.0.12",
+    "gatsby": "^5.10.0",
+    "gatsby-plugin-image": "^3.10.0",
     "moment": "^2.29.4",
     "react-helmet": "^6.1.0",
     "yup": "^1.1.1"
@@ -37,16 +37,16 @@
     }
   },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.19.6",
-    "@babel/preset-env": "^7.20.2",
+    "@babel/plugin-transform-runtime": "^7.21.4",
+    "@babel/preset-env": "^7.21.5",
     "@types/atob": "^2.1.2",
-    "@types/google-map-react": "^2.1.5",
-    "@types/google.maps": "^3.48.3",
-    "@types/node": "^18.11.9",
-    "@types/react": "^17.0.43",
+    "@types/google-map-react": "^2.1.7",
+    "@types/google.maps": "^3.53.1",
+    "@types/node": "^18.16.14",
+    "@types/react": "^18.2.6",
     "@types/react-helmet": "^6.1.6",
     "@types/supercluster": "^7.1.0",
-    "typescript": "^4.5.5"
+    "typescript": "^5.0.4"
   },
   "scripts": {
     "prepare": "install-peers"
