@@ -21,8 +21,8 @@
   },
   "peerDependencies": {
     "@superrb/gatsby-addons-filesystem": "^0.0.9",
-    "@superrb/gatsby-addons-prismic": "^0.0.12",
-    "gatsby": "^5.10.0",
+    "@superrb/gatsby-addons-prismic": "^0.0.13",
+    "gatsby": "^5.9.0",
     "gatsby-plugin-image": "^3.10.0",
     "moment": "^2.29.4",
     "react-helmet": "^6.1.0",
