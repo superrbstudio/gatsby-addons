@@ -3,10 +3,12 @@ import React, {
   PropsWithChildren,
   useCallback,
   useState,
+  LinkHTMLAttributes,
+  HTMLLinkElement
 } from 'react'
 
-export type CrossOrigin = 'anonymous' | 'use-credentials'
-export type ContentType = 'style' | 'script' | 'image' | 'font'
+export type CrossOrigin = LinkHTMLAttributes<HTMLLinkElement>['crossOrigin']
+export type ContentType = LinkHTMLAttributes<HTMLLinkElement>['as']
 
 export interface PreloadItem {
   url: string
