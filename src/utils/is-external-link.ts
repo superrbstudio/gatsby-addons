@@ -1,6 +1,6 @@
 const isExternalLink = (url: string) => {
   // In SSR mode, treat everything as an external link
-  if (typeof window === 'undefined') {
+  if (!url || typeof window === 'undefined') {
     return true
   }
 
