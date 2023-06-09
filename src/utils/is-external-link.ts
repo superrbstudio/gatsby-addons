@@ -9,8 +9,14 @@ const isExternalLink = (url: string) => {
     return false
   }
 
-  const tmp = new URL(url)
-  return tmp.host !== window.location.host
+  let tmp: URL
+  try {
+    tmp = new URL(url)
+  } catch (_) {
+    return true
+  }
+
+  return tmp?.host !== window.location.host
 }
 
 export default isExternalLink
