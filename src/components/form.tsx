@@ -32,6 +32,7 @@ interface FormProps<T extends OptionalObjectSchema<any>> {
   renderErrorMessage?: (error?: FieldError) => ReactNode
   renderSubmit?: () => ReactNode
   renderers?: { [P in T as string]: FieldRenderer }
+  executeRecaptcha?: () => Promise<string>
 }
 
 const toBase64 = (file: File) =>
@@ -61,6 +62,7 @@ const Form = forwardRef(
       renderErrorMessage = error => <ErrorMessage error={error} />,
       renderSubmit = () => <SubmitButton />,
       renderers = {},
+      executeRecaptcha = undefined,
       ...props
     }: FormProps<OptionalObjectSchema<any>>,
     ref
@@ -98,6 +100,12 @@ const Form = forwardRef(
               }
             }
           }
+        }
+
+        // if recaptcha is enabled generate a token and add to the data
+        if (executeRecaptcha) {
+          const token = await executeRecaptcha();
+          data['recaptchaToken'] = token;
         }
 
         const response = await fetch(action as string, {
