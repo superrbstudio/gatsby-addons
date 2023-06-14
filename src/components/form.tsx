@@ -89,7 +89,7 @@ const Form = forwardRef(
           if (value instanceof FileList) {
             data[`file_${key}`] = []
             for (const [fileKey, fileValue] of Object.entries(value)) {
-              if (fileValue instanceof File) {
+              if (fileValue instanceof File && fileValue.size > 0) {
                 const insertFile = {
                   base64: await toBase64(fileValue),
                   name: fileValue.name,
