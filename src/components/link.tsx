@@ -3,6 +3,7 @@ import { Link as GatsbyLink } from 'gatsby'
 import { Link as LinkType } from '../../types'
 import isExternalLink from '../utils/is-external-link'
 import { linkResolver } from 'ProjectRoot/src/utils/linkResolver'
+import { useLocation } from '@reach/router'
 
 interface Props extends HTMLAttributes<HTMLAnchorElement> {
   to: LinkType | string | undefined
@@ -10,6 +11,8 @@ interface Props extends HTMLAttributes<HTMLAnchorElement> {
 
 const Link = forwardRef(
   ({ to, ...props }: Props, ref: ForwardedRef<HTMLAnchorElement>) => {
+    const location = useLocation()
+
     let url = to
     if (url && typeof url !== 'string') {
       if ('target' in url) {
@@ -23,7 +26,7 @@ const Link = forwardRef(
       url = linkResolver(url)
     }
 
-    if (isExternalLink(url)) {
+    if (isExternalLink(url, location)) {
       return <a href={url} {...props} ref={ref} />
     }
 
