@@ -1,4 +1,8 @@
 import {
+  ErrorPageContext,
+  ErrorPageContextProvider,
+} from './src/context/error-page-context-provider'
+import {
   ModalContext,
   ModalContextProvider,
 } from './src/context/modal-context-provider'
@@ -20,6 +24,8 @@ import {
 } from './src/context/translation-context-provider'
 
 export {
+  ErrorPageContext,
+  ErrorPageContextProvider,
   ModalContext,
   ModalContextProvider,
   NavContext,
