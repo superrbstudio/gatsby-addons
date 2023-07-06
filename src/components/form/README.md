@@ -55,6 +55,7 @@ There is also a default [error message component](./error-message.tsx), which ca
 ```tsx
 import { Form } from '@superrb/gatsby-addons/components'
 import * as yup, { InferType } from 'yup'
+import { OptionalObjectSchema } from 'yup/lib/object'
 import { FieldError } from 'react-hook-form'
 
 const schema = yup.object({
@@ -65,7 +66,7 @@ const Page => () => (
   <Form
     action="https://yoursite.com/send"
     schema={schema}
-    renderErrorMessage={(error: FieldError) => (
+    renderErrorMessage={(error?: FieldError, fieldSchema?: OptionalObjectSchema<any>) => (
       <>
         <h1>Uh Oh! Something went wrong</h1>
         <p>The error was: {error}</p>
@@ -82,6 +83,7 @@ You can override the HTML for specific fields by passing an object to the `rende
 ```tsx
 import { Form } from '@superrb/gatsby-addons/components'
 import * as yup from 'yup'
+import { OptionalObjectSchema } from 'yup/lib/object'
 import { FieldError } from 'react-hook-form'
 
 const schema = yup.object({
@@ -93,7 +95,7 @@ const Page => () => (
     action="https://yoursite.com/send"
     schema={schema}
     renderers={{
-      dob: (props, error: FieldError) => (
+      dob: (props, error?: FieldError, fieldSchema?: OptionalObjectSchema<any>) => (
         <input type="date" {...props} />
       )
     }}

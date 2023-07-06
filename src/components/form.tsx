@@ -29,7 +29,10 @@ interface FormProps<T extends OptionalObjectSchema<any>> {
   onSubmit?: (data: { [P in T as string]: any }) => void
   onStatusChange?: (status: Status) => void
   renderSuccessMessage?: (data: { [P in T as string]: any }) => ReactNode
-  renderErrorMessage?: (error?: FieldError) => ReactNode
+  renderErrorMessage?: (
+    error?: FieldError,
+    fieldSchema?: OptionalObjectSchema<any>
+  ) => ReactNode
   renderSubmit?: () => ReactNode
   renderers?: { [P in T as string]: FieldRenderer }
   executeRecaptcha?: () => Promise<string>
@@ -59,7 +62,10 @@ const Form = forwardRef(
       onSubmit,
       onStatusChange,
       renderSuccessMessage = data => <SuccessMessage />,
-      renderErrorMessage = error => <ErrorMessage error={error} />,
+      renderErrorMessage = (
+        error?: FieldError,
+        fieldSchema?: OptionalObjectSchema<any>
+      ) => <ErrorMessage error={error} fieldSchema={fieldSchema} />,
       renderSubmit = () => <SubmitButton />,
       renderers = {},
       executeRecaptcha = undefined,
@@ -104,8 +110,8 @@ const Form = forwardRef(
 
         // if recaptcha is enabled generate a token and add to the data
         if (executeRecaptcha) {
-          const token = await executeRecaptcha();
-          data['recaptchaToken'] = token;
+          const token = await executeRecaptcha()
+          data['recaptchaToken'] = token
         }
 
         const response = await fetch(action as string, {
@@ -200,7 +206,8 @@ const Form = forwardRef(
                       {fieldName in renderers ? (
                         renderers[fieldName](
                           register(fieldName),
-                          errors[fieldName] as FieldError
+                          errors[fieldName] as FieldError,
+                          schema.fields[fieldName]
                         )
                       ) : (
                         <>
@@ -210,7 +217,10 @@ const Form = forwardRef(
                             schema={schema.fields[fieldName]}
                           />
                           {fieldName in errors &&
-                            renderErrorMessage(errors[fieldName] as FieldError)}
+                            renderErrorMessage(
+                              errors[fieldName] as FieldError,
+                              schema.fields[fieldName]
+                            )}
                         </>
                       )}
                     </label>
