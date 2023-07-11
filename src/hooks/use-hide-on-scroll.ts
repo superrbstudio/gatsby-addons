@@ -36,6 +36,20 @@ const useHideOnScroll = (hiddenOnLoad: boolean = false): boolean => {
     typeof window !== 'undefined' ? window : undefined
   )
 
+  useEventListener(
+    'resize',
+    handleScroll,
+    { passive: true },
+    typeof window !== 'undefined' ? window : undefined
+  )
+
+  useEventListener(
+    'popstate',
+    handleScroll,
+    { passive: true },
+    typeof window !== 'undefined' ? window : undefined
+  )
+
   return hidden
 }
 
