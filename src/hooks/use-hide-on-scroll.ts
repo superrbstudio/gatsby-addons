@@ -25,6 +25,12 @@ const useHideOnScroll = (hiddenOnLoad: boolean = false): boolean => {
     }, 100)
   }, [setHidden])
 
+  const handleLoad = useCallback(() => {
+    if (window.scrollY > 0) {
+      setHidden(true)
+    }
+  }, [setHidden])
+
   useEffect(() => {
     handleScroll()
   }, [])
@@ -38,14 +44,21 @@ const useHideOnScroll = (hiddenOnLoad: boolean = false): boolean => {
 
   useEventListener(
     'resize',
-    handleScroll,
+    handleLoad,
     { passive: true },
     typeof window !== 'undefined' ? window : undefined
   )
 
   useEventListener(
     'popstate',
-    handleScroll,
+    handleLoad,
+    { passive: true },
+    typeof window !== 'undefined' ? window : undefined
+  )
+
+  useEventListener(
+    'pageshow',
+    handleLoad,
     { passive: true },
     typeof window !== 'undefined' ? window : undefined
   )
