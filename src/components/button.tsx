@@ -39,19 +39,12 @@ const Button = forwardRef(
     }: Props,
     ref: ForwardedRef<HTMLAnchorElement | HTMLButtonElement>
   ) => {
-    const id = props.id || useId('button')
-
     const renderedChildren = (
       <>
-        {label_a11y && (
-          <span className="screenreader-text" id={`${id}-label`}>
-            {label_a11y}
-          </span>
-        )}
+        {label_a11y && <span className="screenreader-text">{label_a11y}</span>}
         {label && (
           <span
             className={`button__label ${extendClass(className, 'label')}`}
-            id={!label_a11y ? `${id}-label` : ''}
             aria-hidden={label_a11y !== undefined}
             data-text={label}
           >
@@ -68,8 +61,7 @@ const Button = forwardRef(
           onClick={onClick as MouseEventHandler<HTMLAnchorElement>}
           to={href}
           className={`button ${className}`}
-          id={id}
-          aria-labelledby={`${id}-label`}
+          aria-label={label_a11y || label}
           ref={ref as ForwardedRef<HTMLAnchorElement>}
           {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}
         >
@@ -82,8 +74,7 @@ const Button = forwardRef(
       <button
         onClick={onClick as MouseEventHandler<HTMLButtonElement>}
         className={`button ${className}`}
-        id={id}
-        aria-labelledby={`${id}-label`}
+        aria-label={label_a11y || label}
         ref={ref as ForwardedRef<HTMLButtonElement>}
         {...(props as ButtonHTMLAttributes<HTMLButtonElement>)}
       >
