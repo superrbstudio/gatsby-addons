@@ -68,6 +68,7 @@ const Image = forwardRef(
         ? {
             url: image.fluid?.src,
             imagesrcset: image.fluid?.srcSet,
+            as: 'image',
           }
         : null
     )
