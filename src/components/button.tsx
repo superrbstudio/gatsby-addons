@@ -9,7 +9,6 @@ import React, {
   memo,
 } from 'react'
 import Link from './link'
-import useId from '../hooks/use-id'
 import extendClass from '../utils/extend-class'
 import { Link as LinkType } from '../../types'
 

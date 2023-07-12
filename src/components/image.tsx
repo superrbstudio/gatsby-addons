@@ -7,14 +7,10 @@ import React, {
   useEffect,
   forwardRef,
   ForwardedRef,
-  useState,
-  useCallback,
 } from 'react'
 import atob from 'atob'
 import { Image as ImageType, ImageLayout } from '../../types'
 import { LazyLoadingContext, PreloadContext } from '../../context'
-import { PreloadItem } from '../context/preload-context-provider'
-import useEventListener from '../hooks/use-event-listener'
 
 const DEFAULT_STYLE: CSSProperties = {
   display: 'block',
