@@ -125,7 +125,7 @@ const Image = forwardRef(
                   'data-srcset': image?.fluid?.srcSet,
                 }
               : {
-                  srcset: image?.fluid?.srcSet,
+                  srcSet: image?.fluid?.srcSet,
                 })}
             alt={image.alt}
             style={{
