@@ -1,10 +1,4 @@
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  MutableRefObject,
-} from 'react'
+import { useEffect, useRef, useState, MutableRefObject } from 'react'
 
 const useIsInViewport = (
   initial = false,
@@ -40,45 +34,49 @@ const useIsInViewport = (
     }
   }, [])
 
-  const waitForObserver: () => Promise<IntersectionObserver> =
-    useCallback(async () => {
+  const waitForObserver: () => Promise<IntersectionObserver> = () => {
+    return new Promise((resolve, reject) => {
       if (observer.current) {
-        return observer.current
+        resolve(observer.current)
+
+        return
       }
 
-      return new Promise((resolve, reject) => {
-        let waitTimer
-        const rejectionTimer = setTimeout(() => {
+      let waitTimer: NodeJS.Timeout
+      const rejectionTimer = setTimeout(() => {
+        clearTimeout(waitTimer)
+        reject(new Error('Timeout waiting for observer'))
+      }, 5000)
+
+      const wait: () => NodeJS.Timeout | void = () => {
+        if (observer.current) {
+          clearTimeout(rejectionTimer)
           clearTimeout(waitTimer)
-          reject(new Error('Timeout waiting for observer'))
-        }, 5000)
-
-        const wait: () => NodeJS.Timeout | void = () => {
-          if (observer.current) {
-            clearTimeout(rejectionTimer)
-            clearTimeout(waitTimer)
-            resolve(observer.current)
-            return
-          }
-
-          waitTimer = setTimeout(wait, 1000)
+          resolve(observer.current)
           return
         }
 
-        wait()
-      })
-    }, [])
+        waitTimer = setTimeout(wait, 1000)
+        return
+      }
 
-  const setRef = useCallback(
-    async (ref: HTMLElement | null) => {
-      element.current = ref
-      if (ref) {
+      wait()
+    })
+  }
+
+  const setRef = async (ref: HTMLElement | null) => {
+    element.current = ref
+    if (ref) {
+      try {
         const observer = await waitForObserver()
         observer.observe(ref)
+      } catch (error) {
+        // If IntersectionObserver fails, just set isInViewport to true
+        console.error(error)
+        setIsInViewport(true)
       }
-    },
-    [element]
-  )
+    }
+  }
 
   return { isInViewport, setRef }
 }
