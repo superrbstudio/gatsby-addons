@@ -12,8 +12,9 @@ const useIsInViewport = (
   threshold = [0, 0.25, 0.5, 0.75, 1]
 ) => {
   const [isInViewport, setIsInViewport] = useState(initial)
-  const element = useRef<HTMLElement | null>() as MutableRefObject<HTMLElement | null>
-  const observer = 
+  const element =
+    useRef<HTMLElement | null>() as MutableRefObject<HTMLElement | null>
+  const observer =
     useRef<IntersectionObserver>() as MutableRefObject<IntersectionObserver | null>
 
   useEffect(() => {
@@ -46,18 +47,22 @@ const useIsInViewport = (
       }
 
       return new Promise((resolve, reject) => {
+        let waitTimer
         const rejectionTimer = setTimeout(() => {
+          clearTimeout(waitTimer)
           reject(new Error('Timeout waiting for observer'))
         }, 5000)
 
         const wait: () => NodeJS.Timeout | void = () => {
           if (observer.current) {
             clearTimeout(rejectionTimer)
+            clearTimeout(waitTimer)
             resolve(observer.current)
             return
           }
 
-          return setTimeout(wait, 1000)
+          waitTimer = setTimeout(wait, 1000)
+          return
         }
 
         wait()
