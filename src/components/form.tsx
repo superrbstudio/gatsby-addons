@@ -28,7 +28,9 @@ interface FormProps<T extends OptionalObjectSchema<any>> {
   schema: T
   onSubmit?: (data: { [P in T as string]: any }) => void
   onStatusChange?: (status: Status) => void
-  renderSuccessMessage?: (data: { [P in T as string]: any }) => ReactNode
+  renderSuccessMessage?:
+    | ((data: { [P in T as string]: any }) => ReactNode)
+    | boolean
   renderErrorMessage?: (
     error?: FieldError,
     fieldSchema?: OptionalObjectSchema<any>
@@ -157,7 +159,7 @@ const Form = forwardRef(
 
     return (
       <>
-        {status === 'success' ? (
+        {status === 'success' && renderSuccessMessage !== false ? (
           <>{renderSuccessMessage(data)}</>
         ) : (
           <form

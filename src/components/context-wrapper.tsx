@@ -7,23 +7,26 @@ import {
   TranslationContextProvider,
   ModalContextProvider,
   ErrorPageContextProvider,
+  CookiesContextProvider,
 } from '../../context'
 
 const ContextWrapper = ({ children }: PropsWithChildren<{}>) => (
   <LocationProvider>
-    <ErrorPageContextProvider>
-      <ModalContextProvider>
-        <NavContextProvider>
-          <LazyLoadingContextProvider>
-            <PreloadContextProvider>
-              <TranslationContextProvider>
-                {children}
-              </TranslationContextProvider>
-            </PreloadContextProvider>
-          </LazyLoadingContextProvider>
-        </NavContextProvider>
-      </ModalContextProvider>
-    </ErrorPageContextProvider>
+    <CookiesContextProvider>
+      <ErrorPageContextProvider>
+        <ModalContextProvider>
+          <NavContextProvider>
+            <LazyLoadingContextProvider>
+              <PreloadContextProvider>
+                <TranslationContextProvider>
+                  {children}
+                </TranslationContextProvider>
+              </PreloadContextProvider>
+            </LazyLoadingContextProvider>
+          </NavContextProvider>
+        </ModalContextProvider>
+      </ErrorPageContextProvider>
+    </CookiesContextProvider>
   </LocationProvider>
 )
 

@@ -1,4 +1,8 @@
 import {
+  CookiesContext,
+  CookiesContextProvider,
+} from './src/context/cookies-context-provider'
+import {
   ErrorPageContext,
   ErrorPageContextProvider,
 } from './src/context/error-page-context-provider'
@@ -24,6 +28,8 @@ import {
 } from './src/context/translation-context-provider'
 
 export {
+  CookiesContext,
+  CookiesContextProvider,
   ErrorPageContext,
   ErrorPageContextProvider,
   ModalContext,
