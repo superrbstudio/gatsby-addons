@@ -1,5 +1,7 @@
 import React, { createContext, useCallback, useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
+import { useLocation } from '@reach/router'
+import { initializeAndTrack } from '@superrb/gatsby-plugin-gdpr-cookies'
 
 export const CookiesContext = createContext({
   cookiesAccepted: false,
@@ -12,6 +14,8 @@ export const CookiesContextProvider = ({ children }) => {
   const [cookiesAccepted, setCookiesAcceptedStorage] = useState<boolean>(false)
   const [trackingCookiesAccepted, setTrackingCookiesAcceptedStorage] =
     useState<boolean>(false)
+
+  const location = useLocation()
 
   useEffect(() => {
     const accepted = Cookies.get('gatsby-accepted-cookies') || false
@@ -42,6 +46,10 @@ export const CookiesContextProvider = ({ children }) => {
         expires: 30,
       })
       setTrackingCookiesAcceptedStorage(accepted)
+
+      if (accepted) {
+        initializeAndTrack(location)
+      }
     },
     [setTrackingCookiesAcceptedStorage]
   )
