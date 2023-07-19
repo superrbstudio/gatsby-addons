@@ -1,11 +1,5 @@
-import { Location } from '@reach/router'
-
 const isExternalLink = (url: string, forceExternal = false) => {
   if (forceExternal) {
-    // If no key is present on route, then we can assume we're on the 404 page
-    //
-    // If so, treat all URLs as external as location context does not update
-    // when navigating from a 404 page
     return true
   }
 
