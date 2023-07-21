@@ -1,13 +1,12 @@
 import React from 'react'
 import { AlternateLanguage, Page } from '../../types'
 import { linkResolver } from 'ProjectRoot/src/utils/linkResolver'
-import { Helmet } from 'react-helmet'
 
 const AlternateLanguages = ({ page }: { page: Page }) => {
   const languages = [...page.alternate_languages, page as AlternateLanguage]
 
   return (
-    <Helmet>
+    <>
       {process.env.GATSBY_LANGUAGE &&
         languages
           ?.filter(page => page.lang === process.env.GATSBY_LANGUAGE)
@@ -27,7 +26,7 @@ const AlternateLanguages = ({ page }: { page: Page }) => {
           key={page.lang}
         />
       ))}
-    </Helmet>
+    </>
   )
 }
 

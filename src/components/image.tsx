@@ -66,8 +66,8 @@ const Image = forwardRef(
     addPreloadItem(
       shouldPreload
         ? {
-            url: image.fluid?.src,
-            imagesrcset: image.fluid?.srcSet,
+            url: image?.gatsbyImageData?.fallback?.src,
+            imagesrcset: image?.gatsbyImageData?.sources[0]?.srcSet,
             as: 'image',
           }
         : null
@@ -77,15 +77,18 @@ const Image = forwardRef(
       if (shouldLazyLoad && !shouldPreload) {
         lazyLoad(imageRef.current)
       }
-    }, [image?.fluid?.src, image?.fluid?.srcSet])
+    }, [
+      image?.gatsbyImageData?.images?.fallback?.src,
+      image?.gatsbyImageData?.images?.sources[0]?.srcSet,
+    ])
 
     if (image === undefined) {
       return null
     }
 
     // Alias images from files
-    if (image?.file?.childImageSharp?.fluid) {
-      image.fluid = image.file.childImageSharp.fluid
+    if (image?.file?.childImageSharp?.gatsbyImageData) {
+      image.gatsbyImageData = image.file.childImageSharp.gatsbyImageData
     }
 
     if (image.fluid?.base64) {
@@ -105,8 +108,9 @@ const Image = forwardRef(
       }
     }
 
-    if (image.fluid?.srcSet) {
-      const placeholder = image.fluid?.srcSet.split(',')[0]?.split(' ')[0]
+    if (image.gatsbyImageData?.images?.sources) {
+      const source = image.gatsbyImageData?.images?.sources[0]
+      const placeholder = image.gatsbyImageData?.images?.fallback
 
       return (
         <figure
@@ -116,13 +120,13 @@ const Image = forwardRef(
         >
           <img
             ref={imageRef}
-            src={placeholder}
+            src={placeholder.src}
             {...(shouldLazyLoad && !shouldPreload
               ? {
-                  'data-srcset': image?.fluid?.srcSet,
+                  'data-srcset': source?.srcSet,
                 }
               : {
-                  srcSet: image?.fluid?.srcSet,
+                  srcSet: source?.srcSet,
                 })}
             alt={image.alt}
             style={{
@@ -140,7 +144,9 @@ const Image = forwardRef(
       )
     }
 
-    if (image.fluid?.src) {
+    if (image.gatsbyImageData?.images?.fallback?.src) {
+      const source = image.gatsbyImageData?.images?.fallback
+
       return (
         <figure
           className={`image ${className}`}
@@ -151,10 +157,10 @@ const Image = forwardRef(
             ref={imageRef}
             {...(shouldLazyLoad && !shouldPreload
               ? {
-                  'data-src': image?.fluid?.src,
+                  'data-src': source.src,
                 }
               : {
-                  src: image?.fluid?.src,
+                  src: source.src,
                 })}
             alt={image.alt}
             style={{

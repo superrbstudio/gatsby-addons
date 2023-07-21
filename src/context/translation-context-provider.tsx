@@ -10,9 +10,9 @@ import translations, {
   Language,
   Messages,
 } from 'ProjectRoot/src/utils/translations'
-import get from 'lodash/fp/get'
 import moment from 'moment/min/moment-with-locales'
 import { AlternateLanguage } from '../../types'
+import { get } from '../../utils'
 
 export type AlternateLanguageMap = {
   [P in Language]?: AlternateLanguage

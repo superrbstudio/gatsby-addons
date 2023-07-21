@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { Helmet } from 'react-helmet'
 import { Metadata } from '../../types'
 
 interface Props {
@@ -19,55 +18,39 @@ const Seo = ({ data }: Props) => {
   }
 
   if (data.meta_image !== undefined && data.meta_image !== null) {
-    meta.push({
-      name: `twitter:image:src`,
-      content: data.meta_image?.fluid?.src,
-    })
-    meta.push({
-      name: 'image',
-      property: 'og:image',
-      content: data.meta_image?.fluid?.src,
-    })
+    const imageUrl = data.meta_image?.gatsbyImageData?.images?.fallback?.src
+
+    if (imageUrl) {
+      meta.push({
+        name: `twitter:image:src`,
+        content: imageUrl,
+      })
+      meta.push({
+        name: 'image',
+        property: 'og:image',
+        content: imageUrl,
+      })
+    }
   }
 
   return (
     <>
-      <Helmet
-        title={data.meta_title}
-        meta={[
-          {
-            name: 'title',
-            property: `og:title`,
-            content: data.meta_title,
-          },
-          {
-            name: 'description',
-            property: `og:description`,
-            content: data.meta_description,
-          },
-          {
-            name: 'type',
-            property: `og:type`,
-            content: `website`,
-          },
-          {
-            name: `twitter:card`,
-            content: `summary`,
-          },
-          {
-            name: `twitter:creator`,
-            content: data.meta_author || ``,
-          },
-          {
-            name: `twitter:title`,
-            content: data.meta_title,
-          },
-          {
-            name: `twitter:description`,
-            content: data.meta_description,
-          },
-        ].concat(meta)}
+      <title>{data.meta_title}</title>
+      <meta name="title" property="og:title" content={data.meta_title} />
+      <meta
+        name="description"
+        property="og:description"
+        content={data.meta_description}
       />
+      <meta name="type" property="og:type" content="website" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:creator" content={data.meta_author || ``} />
+      <meta name="twitter:title" content={data.meta_title} />
+      <meta name="twitter:description" content={data.meta_description} />
+
+      {meta.map(({ name, property, content }) => (
+        <meta key={name} name={name} property={property} content={content} />
+      ))}
     </>
   )
 }

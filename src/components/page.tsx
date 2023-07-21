@@ -1,9 +1,7 @@
-import { AlternateLanguages, Seo } from '../../components'
-import { Metadata, Page as PageType } from '../../types'
+import { Page as PageType } from '../../types'
 import React, { ReactNode, useContext, useEffect } from 'react'
 import { TranslationContext } from '../context/translation-context-provider'
 import { Language } from 'ProjectRoot/src/utils/translations'
-import PreloadLinks from './preload-links'
 
 interface Props {
   page: PageType
@@ -23,14 +21,7 @@ const Page = ({ page, children, lang = undefined }: Props) => {
     setLanguage(lang || (page.lang as Language))
   }, [lang, page])
 
-  return (
-    <>
-      <PreloadLinks />
-      <Seo data={page.data as Metadata} />
-      <AlternateLanguages page={page} />
-      {children}
-    </>
-  )
+  return <>{children}</>
 }
 
 export default Page
