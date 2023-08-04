@@ -12,6 +12,7 @@ import atob from 'atob'
 import { Image as ImageType, ImageLayout } from '../../types'
 import { LazyLoadingContext, PreloadContext } from '../../context'
 import useImageSources from '../hooks/use-image-sources'
+import extendClass from '../utils/extend-class'
 
 const DEFAULT_STYLE: CSSProperties = {
   display: 'block',
@@ -99,6 +100,10 @@ const Image = forwardRef(
           ref={ref}
         >
           <img
+            className={`${extendClass('image', 'image')} ${extendClass(
+              className,
+              'image'
+            )}`}
             ref={imageRef}
             src={src}
             {...(shouldLazyLoad && !shouldPreload
@@ -132,6 +137,10 @@ const Image = forwardRef(
           ref={ref}
         >
           <img
+            className={`${extendClass('image', 'image')} ${extendClass(
+              className,
+              'image'
+            )}`}
             ref={imageRef}
             {...(shouldLazyLoad && !shouldPreload
               ? {
