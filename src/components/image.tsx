@@ -89,7 +89,7 @@ const Image = forwardRef(
       return null
     }
 
-    if (sources.length > 0) {
+    if (sources && sources.length > 0) {
       const source = sources[0]
 
       return (
