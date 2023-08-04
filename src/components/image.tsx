@@ -11,6 +11,7 @@ import React, {
 import atob from 'atob'
 import { Image as ImageType, ImageLayout } from '../../types'
 import { LazyLoadingContext, PreloadContext } from '../../context'
+import useImageSources from '../hooks/use-image-sources'
 
 const DEFAULT_STYLE: CSSProperties = {
   display: 'block',
@@ -82,35 +83,14 @@ const Image = forwardRef(
       image?.gatsbyImageData?.images?.sources[0]?.srcSet,
     ])
 
+    const { src, sources } = useImageSources(image)
+
     if (image === undefined) {
       return null
     }
 
-    // Alias images from files
-    if (image?.file?.childImageSharp?.gatsbyImageData) {
-      image.gatsbyImageData = image.file.childImageSharp.gatsbyImageData
-    }
-
-    if (image.fluid?.base64) {
-      const stub = 'data:image/svg+xml;base64,'
-      if (image.fluid.base64.includes(stub)) {
-        return (
-          <figure
-            className={`image ${className}`}
-            dangerouslySetInnerHTML={{
-              __html: atob(image.fluid.base64.replace(stub, '')),
-            }}
-            style={{ ...DEFAULT_STYLE, ...style }}
-            ref={ref}
-            {...props}
-          />
-        )
-      }
-    }
-
-    if (image.gatsbyImageData?.images?.sources) {
-      const source = image.gatsbyImageData?.images?.sources[0]
-      const placeholder = image.gatsbyImageData?.images?.fallback
+    if (sources.length > 0) {
+      const source = sources[0]
 
       return (
         <figure
@@ -120,7 +100,7 @@ const Image = forwardRef(
         >
           <img
             ref={imageRef}
-            src={placeholder.src}
+            src={src}
             {...(shouldLazyLoad && !shouldPreload
               ? {
                   'data-srcset': source?.srcSet,
@@ -144,9 +124,7 @@ const Image = forwardRef(
       )
     }
 
-    if (image.gatsbyImageData?.images?.fallback?.src) {
-      const source = image.gatsbyImageData?.images?.fallback
-
+    if (src) {
       return (
         <figure
           className={`image ${className}`}
@@ -157,10 +135,10 @@ const Image = forwardRef(
             ref={imageRef}
             {...(shouldLazyLoad && !shouldPreload
               ? {
-                  'data-src': source.src,
+                  'data-src': src,
                 }
               : {
-                  src: source.src,
+                  src: src,
                 })}
             alt={image.alt}
             style={{

@@ -6,6 +6,7 @@ import useDraggableScroll from './src/hooks/use-draggable-scroll'
 import useEventListener from './src/hooks/use-event-listener'
 import useHideOnScroll from './src/hooks/use-hide-on-scroll'
 import useId from './src/hooks/use-id'
+import useImageSources from './src/hooks/use-image-sources'
 import useIsInViewport from './src/hooks/use-is-in-viewport'
 import useIsMobile from './src/hooks/use-is-mobile'
 import useLockBodyScroll from './src/hooks/use-lock-body-scroll'
@@ -21,6 +22,7 @@ export {
   useEventListener,
   useHideOnScroll,
   useId,
+  useImageSources,
   useIsInViewport,
   useIsMobile,
   useLockBodyScroll,
