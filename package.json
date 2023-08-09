@@ -22,7 +22,7 @@
   },
   "peerDependencies": {
     "@superrb/gatsby-addons-filesystem": "^0.0.11",
-    "@superrb/gatsby-addons-prismic": "^1.0.0-0",
+    "@superrb/gatsby-addons-prismic": "^1.0.0-1",
     "@superrb/gatsby-plugin-gdpr-cookies": "^2.0.10",
     "gatsby": "^5.11.0",
     "gatsby-plugin-image": "^3.11.0",
