@@ -91,7 +91,9 @@ const Image = forwardRef(
     }
 
     if ('url' in image && image.url?.includes('.svg')) {
-      return <EmbeddedSVG url={image.url} {...{ className, style, ...props }} />
+      return (
+        <EmbeddedSVG url={image.url} {...{ ref, className, style, ...props }} />
+      )
     }
 
     if (sources && sources.length > 0) {
@@ -173,4 +175,4 @@ const Image = forwardRef(
   }
 )
 
-export default memo(Image)
+export default Image
