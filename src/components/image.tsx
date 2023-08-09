@@ -8,7 +8,7 @@ import React, {
   forwardRef,
   ForwardedRef,
 } from 'react'
-import atob from 'atob'
+import { EmbeddedSVG } from '../../components'
 import { Image as ImageType, ImageLayout } from '../../types'
 import { LazyLoadingContext, PreloadContext } from '../../context'
 import useImageSources from '../hooks/use-image-sources'
@@ -88,6 +88,10 @@ const Image = forwardRef(
 
     if (image === undefined) {
       return null
+    }
+
+    if ('url' in image && image.url.includes('.svg')) {
+      return <EmbeddedSVG url={image.url} {...{ className, style, ...props }} />
     }
 
     if (sources && sources.length > 0) {

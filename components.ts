@@ -5,6 +5,7 @@ import AlternateLanguages from './src/components/alternate-languages'
 import Button from './src/components/button'
 import ContextWrapper from './src/components/context-wrapper'
 import CookieBanner from './src/components/cookie-banner'
+import EmbeddedSVG from './src/components/embedded-svg'
 import Form from './src/components/form'
 import Image from './src/components/image'
 import Link from './src/components/link'
@@ -27,6 +28,7 @@ export {
   Button,
   ContextWrapper,
   CookieBanner,
+  EmbeddedSVG,
   Form,
   Image,
   Link,
