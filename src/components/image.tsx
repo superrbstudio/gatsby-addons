@@ -90,7 +90,7 @@ const Image = forwardRef(
       return null
     }
 
-    if ('url' in image && image.url.includes('.svg')) {
+    if ('url' in image && image.url?.includes('.svg')) {
       return <EmbeddedSVG url={image.url} {...{ className, style, ...props }} />
     }
 
