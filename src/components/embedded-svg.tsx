@@ -1,18 +1,11 @@
-import React, {
-  HTMLAttributes,
-  MutableRefObject,
-  useEffect,
-  useRef,
-} from 'react'
+import React, { HTMLAttributes, useEffect, useState } from 'react'
 
 interface Props extends HTMLAttributes<HTMLDivElement> {
   url: string
 }
 
 const EmbeddedSVG = ({ url, ...props }: Props) => {
-  const xml = useRef<TrustedHTML | undefined>() as MutableRefObject<
-    TrustedHTML | undefined
-  >
+  const [xml, setXml] = useState<TrustedHTML | undefined>()
 
   useEffect(() => {
     ;(async () => {
@@ -20,19 +13,17 @@ const EmbeddedSVG = ({ url, ...props }: Props) => {
         const response = await fetch(url)
         const text = await response.text()
 
-        xml.current = text as TrustedHTML
+        setXml(text)
       } catch (error) {
         console.error(error)
-        xml.current = undefined
+        setXml(undefined)
       }
     })()
   }, [url])
 
   return (
     <div
-      {...(xml.current
-        ? { dangerouslySetInnerHTML: { __html: xml.current } }
-        : {})}
+      {...(xml ? { dangerouslySetInnerHTML: { __html: xml } } : {})}
       {...props}
     />
   )
