@@ -69,7 +69,9 @@ const Image = forwardRef(
       shouldPreload
         ? {
             url: image?.gatsbyImageData?.fallback?.src,
-            imagesrcset: image?.gatsbyImageData?.sources[0]?.srcSet,
+            imagesrcset: Array.isArray(image?.gatsbyImageData?.sources)
+              ? image?.gatsbyImageData?.sources[0]?.srcSet
+              : '',
             as: 'image',
           }
         : null
@@ -81,7 +83,7 @@ const Image = forwardRef(
       }
     }, [
       image?.gatsbyImageData?.images?.fallback?.src,
-      image?.gatsbyImageData?.images?.sources[0]?.srcSet,
+      image?.gatsbyImageData?.sources[0]?.srcSet,
     ])
 
     const { src, sources } = useImageSources(image)
