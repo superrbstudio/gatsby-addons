@@ -83,7 +83,7 @@ const Image = forwardRef(
       }
     }, [
       image?.gatsbyImageData?.images?.fallback?.src,
-      image?.gatsbyImageData?.sources[0]?.srcSet,
+      image?.gatsbyImageData?.sources,
     ])
 
     const { src, sources } = useImageSources(image)
