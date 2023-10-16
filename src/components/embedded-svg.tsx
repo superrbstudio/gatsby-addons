@@ -23,6 +23,7 @@ const EmbeddedSVG = ({ url, ...props }: Props) => {
 
   return (
     <div
+      className="image"
       {...(xml ? { dangerouslySetInnerHTML: { __html: xml } } : {})}
       {...props}
     />
