@@ -65,15 +65,17 @@ const Image = forwardRef(
     const { lazyLoad } = useContext(LazyLoadingContext)
     const { addPreloadItem } = useContext(PreloadContext)
 
+    const { src, sources } = useImageSources(image)
+
     addPreloadItem(
       shouldPreload
         ? {
-            url: image?.gatsbyImageData?.fallback?.src,
-            imagesrcset: Array.isArray(image?.gatsbyImageData?.sources)
-              ? image?.gatsbyImageData?.sources[0]?.srcSet
-              : '',
-            as: 'image',
-          }
+          url: src,
+          imagesrcset: Array.isArray(sources)
+            ? sources[0]?.srcSet
+            : '',
+          as: 'image',
+        }
         : null
     )
 
@@ -82,11 +84,9 @@ const Image = forwardRef(
         lazyLoad(imageRef.current)
       }
     }, [
-      image?.gatsbyImageData?.images?.fallback?.src,
-      image?.gatsbyImageData?.sources,
+      src,
+      sources,
     ])
-
-    const { src, sources } = useImageSources(image)
 
     if (image === undefined) {
       return null

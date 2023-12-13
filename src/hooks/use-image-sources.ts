@@ -7,13 +7,13 @@ const useImageSources = (image: Image) => {
     image.gatsbyImageData = image.file.childImageSharp.gatsbyImageData
   }
 
-  if (image?.gatsbyImageData?.images?.fallback?.src && image?.gatsbyImageData?.images?.sources && process.env.GATSBY_IMAGE_URL_FIND && process.env.GATSBY_IMAGE_URL_REPLACE) {
-    image.gatsbyImageData.images.fallback.src = image.gatsbyImageData.images.fallback.src.replace(process.env.GATSBY_IMAGE_URL_FIND, process.env.GATSBY_IMAGE_URL_REPLACE)
+  if (image?.gatsbyImageData?.images?.fallback && image?.gatsbyImageData?.images?.sources && process.env.GATSBY_IMAGE_URL_FIND && process.env.GATSBY_IMAGE_URL_REPLACE) {
+    image.gatsbyImageData.images.fallback.src = image.gatsbyImageData.images.fallback.src.replaceAll(process.env.GATSBY_IMAGE_URL_FIND, process.env.GATSBY_IMAGE_URL_REPLACE)
     let newSources: { sizes: string | undefined; srcSet: string | undefined; type: string | undefined }[] = []
     image.gatsbyImageData.images.sources.forEach(function (item: SourceProps) {
       newSources.push({
         sizes: item.sizes,
-        srcSet: item.srcSet.replace(process.env.GATSBY_IMAGE_URL_FIND as string, process.env.GATSBY_IMAGE_URL_REPLACE as string),
+        srcSet: item.srcSet.replaceAll(process.env.GATSBY_IMAGE_URL_FIND as string, process.env.GATSBY_IMAGE_URL_REPLACE as string),
         type: item.type,
       })
     })
