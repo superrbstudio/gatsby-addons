@@ -80,6 +80,17 @@ export default translations
 
 Translations should be stored in `src/translations/<lang>.json`. The typescript types are automatically generated based on the keys in the JSON file.
 
+## Image Reverse Proxy
+
+To use a reverse proxy for Images you can replace the domain in the image urls by populating the following env vars:
+
+```env
+GATSBY_IMAGE_URL_FIND="images.prismic.io"
+GATSBY_IMAGE_URL_REPLACE="reverseproxy.cdn.com"
+```
+
+All image URLs will be converted from `https://images.prismic.io/image.webp` to `https://reverseproxy.cdn.com/image.webp`
+
 ## Further Documentation
 * [Components](./src/components/README.md)
 * [Contexts](./src/context/README.md)
