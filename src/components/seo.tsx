@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Metadata } from '../../types'
+import useImageSources from '../hooks/use-image-sources'
 
 interface Props {
   data: Metadata
@@ -18,17 +19,17 @@ const Seo = ({ data }: Props) => {
   }
 
   if (data.meta_image !== undefined && data.meta_image !== null) {
-    const imageUrl = data.meta_image?.gatsbyImageData?.images?.fallback?.src
+    const { src } = useImageSources(data.meta_image)
 
-    if (imageUrl) {
+    if (src) {
       meta.push({
         name: `twitter:image:src`,
-        content: imageUrl,
+        content: src,
       })
       meta.push({
         name: 'image',
         property: 'og:image',
-        content: imageUrl,
+        content: src,
       })
     }
   }
